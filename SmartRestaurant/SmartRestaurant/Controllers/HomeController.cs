@@ -1,4 +1,6 @@
 ﻿using System.Web.Mvc;
+using SmartRestaurant.BLL;
+using System.Linq;
 
 namespace SmartRestaurant.Controllers
 {
@@ -7,7 +9,15 @@ namespace SmartRestaurant.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+            using (var db = new MainDb())
+            {
+                //取id=1的列
+                var model = db.zzdc_czlx.Where(p => p.id == 1).FirstOrDefault();
+
+                
+            }
+
+                return View();
         }
     }
 }
