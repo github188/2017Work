@@ -11,6 +11,8 @@ namespace SmartRestaurant
 
         protected void Application_Start(object sender, EventArgs e)
         {
+            /*注册区域 要在RouteConfig前面 */
+            AreaRegistration.RegisterAllAreas();
             FilterConfig.Configure(GlobalFilters.Filters);
             RouteConfig.Configure(RouteTable.Routes);
         }
@@ -22,7 +24,7 @@ namespace SmartRestaurant
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-
+            if (Context.Request.FilePath == "/") Context.RewritePath("/Dictionary/Dictionary");
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)

@@ -1,0 +1,345 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@* 按钮行 *@
+<link rel="stylesheet" type="text/css" href="~/Content/navmenu/fonts/font-awesome-4.2.0/css/font-awesome.min.css" />
+
+<link rel="stylesheet" type="text/css" href="~/Content/navmenu/css/menu_cornerbox_nested.css" />
+
+<div><a href="~/Dictionary/Dictionary">返回主页</a>/@(HttpUtility.UrlDecode(HttpUtility.UrlDecode(Request["TableName"])) ?? "详情表")</div>
+<div style="clear:both"></div>
+<div class="input-group col-md-3" style="margin-top:20px;margin-bottom:10px;">
+    <input id="searchText" type="text" class="form-control" placeholder="请输入页名" />
+    <span class="input-group-btn">
+        <button class="btn btn-info btn-search" onclick="query()">查找</button>
+        <button class="btn btn-info btn-search" style="margin-left:3px" data-toggle="modal" data-target="#modaldialog" data-title="添加">添加</button>
+    </span>
+</div>
+<div class="table-responsive">
+    <table id="table_01" class="table table-bordered table-striped table-hover" style="margin-bottom:0px;"></table>
+</div>
+<div style="clear:both"></div>
+
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="modaldialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" style="width:320px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+            </div>
+            <div class="modal-body">在这里添加一些文本</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="submit" type="button" data-spinner-size="35px" data-style="slide-up" class="btn btn-primary ladda-button" onclick="return formSubmit()"><span class="ladda-label">提交更改</span></button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+ <!-- 侧边栏 -->
+<div  id="hpftranslate" class="menu-wrap" data-level="1">
+
+    <nav class="menu">
+
+        <h3>翻译</h3>
+
+        <div class="content-edit" id="sourcelanguage" contenteditable="true" oninput="Translate()"></div>
+        <div style="margin:10px 0px 10px 0px;text-align: center;"><span style="font-size:4rem;cursor:pointer" class="glyphicon glyphicon-arrow-down" aria-hidden="true" onclick="return Translate()"></span></div>
+        <div class="content-edit" id="targetlanguage" contenteditable="true"></div>
+
+        <button onclick="return autoCreate(false)" class="default-button">插入字段</button>
+
+    </nav>
+
+    <button class="close-button" id="close-button">Close Menu(此段文字会被隐藏)</button>
+
+</div>
+ <!-- end 侧边栏 -->
+<button class="menu-button" id="open-button" style="top: 30px;right: 200px;"><i class="fa fa-fw fa-pencil-square"></i><span>Open Menu</span></button>
+
+<!-- 模态框2（Modal） -->
+<div class="modal fade" id="modaldialog2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog" style="width:320px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">相同字段</h4>
+            </div>
+            <div class="modal-body">在这里添加一些文本</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" id="autoMerge" data-spinner-size="35px" data-style="slide-up" class="btn btn-primary ladda-button" onclick="return autoMerge()"><span class="ladda-label">合并到default</span></button>
+                <button  type="button" id="autoAdd" data-spinner-size="35px" data-style="slide-up" class="btn btn-primary ladda-button" onclick="return autoCreate(true)"><span class="ladda-label">确认添加</span></button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<script>
+    var ladda = Ladda.create(document.querySelector('#submit'));
+    var ladda2 = Ladda.create(document.querySelector('#autoMerge'));
+    var ladda3 = Ladda.create(document.querySelector('#autoAdd'));
+    function initComplete() {
+        var layout = $("#layout1").layout({ leftWidth: 200, rightWidth: 200 });
+        layout.setRightCollapse(true);
+    }
+    function togglemenu() {
+        $('body').toggleClass("show-menu");
+    }
+
+    $(function () {
+        //initComplete();
+
+        $('#close-button').on('click', togglemenu);
+        $('#open-button').on('click', togglemenu);
+
+        $('#modaldialog').modal({
+            show: false,
+            keyboard: true,
+            backdrop: true
+        });
+
+        $('#modaldialog2').modal({
+            show: false,
+            keyboard: true,
+            backdrop: true
+        });
+        $('#modaldialog').on('show.bs.modal', function (e) {
+            var btn = $(e.relatedTarget);
+            //console.log(btn.data('title'));
+
+            var parames = typeof btn.data('whatever') == "undefined" ? null : btn.data('whatever');
+            var title = typeof btn.data('title') == "undefined" ? "详情" : btn.data('title');
+            var current = $(e.currentTarget);
+            ajax({
+                url: '@Url.Action("Detail")?TableID=@(Request["TableID"])&TableName=@(Request["TableName"])&Type=@(Request["Type"])'
+                    + (parames == null ? "" : "&ID=" + parames),
+                async: false,
+                success: function (res) {
+                    current.find('.modal-title').html(title);
+                    current.find('.modal-body').html(res);
+                }
+            });
+        });
+
+        var cols = [
+                {
+                    title: '序号',
+                    width: '5%'
+                },
+                {
+                    field: 'ID',
+                    title: 'ID',
+                    width: '5%'
+                },
+                {
+                    field: 'Name',
+                    title: '字段名',
+                    width: '25%'
+                },
+                {
+                    field: 'Value',
+                    title: '字段值',
+                    width: '30%'
+                }, {
+                    field: 'TableName',
+                    title: '所属表',
+                    width: '10%'
+                },
+                {
+                    field: 'Type',
+                    title: '类型',
+                    width: '10%',
+                    align: "center",
+                    formatter: function (value, row) {
+                        var TypeOption = ["中文", "英文"];
+                        return TypeOption[value];
+                    }
+                },
+                {
+                    field: 'ID',
+                    title: '操作',
+                    width: '15%',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        return '<a class="btn btn-warning btn-sm" href="#" data-toggle="modal" data-target="#modaldialog" data-whatever="'
+                                + value + '"data-title="修改"><i class="fa fa-edit"></i> 修改</a>&nbsp;' +
+                                '<a class="btn btn-danger btn-sm" role="button" onclick="del(\'' + value +
+                                '\',\'' + row.Name + '\')" title="删除"><i class="fa fa-bitbucket"></i> 删除</a>';
+                    }
+                }
+        ];
+
+        $("#table_01").BiaoGe({
+            hasPager: true,
+            columns: cols,
+            loadData: function (pageNum, pageSize, callback) {
+                var data = {
+                    //固定参数
+                    rows: pageSize,
+                    page: pageNum,
+                    //自定义参数
+                    search: $.trim($("#searchText").val()),
+                    TableID: '@(Request["TableID"])'
+                };
+                $.post(
+                    "@Url.Action("List")",
+                    data,
+                    function (data) {//  {total:11,rows[{..},{..}]}
+                        console.log(data);
+                        callback(data);
+                    },
+                    "json"
+                );
+            }
+        });
+
+    });
+
+    function del(id, name) {
+        if (confirm("确认删除[" + name + "]？")) {
+            $.post('@(Url.Action("Delete"))', { ID: id }, function (res) {
+                if (res.success == true) {
+                    alert("成功删除" + res.count + "条数据");
+                }
+                else {
+                    alert("操作失败");
+                }
+                query();
+
+            })
+        }
+    }
+
+    function query() {
+        $("#table_01").BiaoGe("refreshData");
+    }
+
+    function showdialog() {
+        $('#modaldialog').modal('show')
+    }
+
+    function formSubmit() {
+        ladda.start();
+
+        $.post('@Url.Action("EditAciton")', model, function (res) {
+            if (res.success == true) {
+                alert("操作成功");
+                ladda.stop();
+                $('#modaldialog').modal("hide");
+                query();
+            }
+        });
+    }
+    var translatetime = (new Date()).getTime();
+    function Translate()
+    {
+        var sourcelanguage = $('#sourcelanguage').text();
+        //if (sourcelanguage.trim() != sourcelanguage)
+        //{
+        //    sourcelanguage = sourcelanguage.trim();
+        //    $('#sourcelanguage').text(sourcelanguage);
+        //    keepLastIndex($('#sourcelanguage').get(0));
+        //    warn("自动去除两边空格");
+        //}
+        var reg = new RegExp("[^\\w\\u4e00-\\u9fa5]","g");
+
+        if (reg.test(sourcelanguage))
+        {
+            sourcelanguage = sourcelanguage.replace(reg,"");
+            $('#sourcelanguage').text(sourcelanguage);
+            keepLastIndex($('#sourcelanguage').get(0));
+            warn("自动去除特殊字符");
+        }
+
+        if (sourcelanguage.length > 0)
+        {
+            translatetime = new Date().getTime();
+            $.get("@Url.Action("Translate")", { query: sourcelanguage, from: "zh", to: "en", time: translatetime }, function (res) {
+
+                if (res.time >= translatetime)
+                {
+                    var result = eval('(' + res.Data + ')');
+                    //console.log(result.trans_result.data[0]);
+                    $('#targetlanguage').text(result.trans_result.data[0].dst);
+                }
+
+            });
+        }
+        else
+        {
+            translatetime = new Date().getTime();
+            $('#targetlanguage').text("");
+        }
+
+
+        return false;
+    }
+
+    function keepLastIndex(obj) {
+        if (window.getSelection) {//ie11 10 9 ff safari
+            obj.focus(); //解决ff不获取焦点无法定位问题
+            var range = window.getSelection();//创建range
+            range.selectAllChildren(obj);//range 选择obj下所有子内容
+            range.collapseToEnd();//光标移至最后
+        }
+        else if (document.selection) {//ie10 9 8 7 6 5
+            var range = document.selection.createRange();//创建选择对象
+            //var range = document.body.createTextRange();
+            range.moveToElementText(obj);//range定位到obj
+            range.collapse(false);//光标移至最后
+            range.select();
+        }
+    }
+
+    function autoCreate(Sure)
+    {
+        if (Sure)
+        {
+            ladda3.start();
+
+        }
+        $.post('@Url.Action("AutoAdd")', { Name: $('#sourcelanguage').text(), Value: $('#targetlanguage').text(), TableID: "@Request["TableID"]", Type: 1, Sure: Sure }, function (res) {
+
+            if (Sure)
+            {
+                ladda3.stop();
+                $("#modaldialog2").modal("hide");
+            }
+            if(res.success)
+            {
+                warn("添加成功");
+                $('#sourcelanguage').text("");
+                query();
+            }
+            else {
+                if (res.Code == -1)
+                {
+                    warn("此表已有相同字段");
+
+                }
+                else {
+                    var current = $("#modaldialog2");
+                    ajax({
+                        url: '@Url.Action("RepeatField")',
+                        data: { IDs: res.Data.join(",") },
+                        async: false,
+                        success: function (res) {
+                            current.find('.modal-body').html(res);
+                        }
+                    });
+
+                    current.modal("show");
+                }
+            }
+        });
+    }
+
+
+   
+
+</script>
+

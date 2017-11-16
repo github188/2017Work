@@ -7,11 +7,14 @@ namespace SmartRestaurant.App_Start
     {
         public static void Configure(RouteCollection routes)
         {
+            //routes.Ignore("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new {  controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
+
+
     }
 }

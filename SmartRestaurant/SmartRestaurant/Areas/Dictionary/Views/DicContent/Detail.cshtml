@@ -1,0 +1,138 @@
+﻿@model RcsDic
+@{
+
+    Layout = null;
+    int type = 0;
+    Int32.TryParse(Request["Type"],out type);
+}
+<script>
+    var TypeOption=["中文","英文"];
+
+    var model = @Html.Raw(Json.Encode(Model));
+    if(model==null)
+    {//默认实体属性
+        model={
+            ID:"",
+            Name:"",
+            Value:"",
+            TableID:"@(Request["TableID"])",
+            Type:"@(type)",
+            
+        };
+    }
+
+    //实体中没有的属性
+    $.extend(model,{
+        TableName:"@(Request["TableName"])",
+        time:(new Date()).getTime(),
+        TypeName:TypeOption[model.Type],
+        TypeOption:TypeOption,
+        options:[
+            {TableID:1,TableName:"11"},
+            {TableID:2,TableName:"22"},
+            {TableID:3,TableName:"33"}
+
+        ]});
+    new Vue({
+        el:"#form1",
+        data:model,
+        methods:{
+            checker:function(e){
+                dataCheck(this.Name);
+            },
+            select:function (index){
+                this.TableName=this.options[index].TableName;
+                this.TableID=this.options[index].TableID;
+            },
+            selectType:function (index){
+                this.TypeName=this.TypeOption[index];
+                this.Type=index;
+            }
+        }
+    })
+
+    function dataCheck(name)
+    {
+        $('#submit').attr("disabled","disabled");
+        var reg=new RegExp("[^\\w\\u4e00-\\u9fa5]");
+        if(name==""||reg.test(name))
+        {
+            
+        }
+        else{
+            model.time=(new Date()).getTime();
+            $.get('@Url.Action("NameCheck")',model,function(res){
+
+                if(res.time>=model.time)
+                {
+                    if(res.success)
+                    {
+                        $('#submit').removeAttr("disabled");
+                    }
+                    else{
+                        
+                    }
+                }
+            });
+        }
+    }
+
+    
+
+</script>
+<form id="form1">
+    <div class="form-group">
+        <label for="ID">ID</label><input class="form-control" type="text" id="ID" readonly="readonly" v-model="ID" placeholder="自动编号" />
+    </div>
+    <div class="form-group">
+        <label for="Name">字段名</label><input class="form-control" type="text" id="Name" v-model.trim="Name" v-on:input="checker" placeholder="字段名" autocomplete="off" />
+    </div>
+    <div class="form-group">
+        <label for="Value">字段值</label><input class="form-control" type="text" id="Value" v-model.trim="Value" placeholder="字段值" autocomplete="off" />
+    </div>
+    <div class="form-group">
+        <label for="Type">类型</label>
+        <input id="Type" type="hidden" v-model="Type" />
+
+        <div class="input-group">
+            <input class="form-control" type="text" id="TypeName" v-model.trim="TypeName" placeholder="类型" autocomplete="off" disabled="disabled" />
+
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                选择<span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu">
+                    <li v-for="(option,$index) in TypeOption">
+                        <a v-on:click="selectType($index)" role="button" href="#">{{option}}</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label for="TableID">表名</label>
+        <input id="TableID" type="hidden" v-model="TableID" />
+        <input class="form-control" type="text" id="TableName" v-model.trim="TableName" placeholder="表名" autocomplete="off" disabled="disabled" />
+
+        @*<div class="dropdown" >
+            
+            <a id="dLabel" role="button" data-toggle="dropdown"  data-target="#" href="#"  >
+                <span>{{TableName}}</span><span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" >
+             <li v-for="(option,$index) in options"  >
+                 <div v-on:click="select($index)" ><a role="button" href="#">{{option.TableName}}</a></div>
+             </li> 
+            </ul>
+        </div>*@
+
+        @*<input class="form-control" type="text"  v-model="TableID" placeholder="表名" value="0" />*@
+    </div>
+</form>
+<script>
+    $(function(){
+        dataCheck(model.Name);
+        //l.isLoading();
+    });
+</script>

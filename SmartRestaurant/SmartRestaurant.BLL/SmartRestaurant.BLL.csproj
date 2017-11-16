@@ -53,6 +53,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Dictionary.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Dictionary.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionary.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Dictionary.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionary.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Dictionary.edmx</DependentUpon>
+    </Compile>
     <Compile Include="MainDbContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -69,6 +84,12 @@
       <DependentUpon>MainDbContext.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RcsDic.cs">
+      <DependentUpon>Dictionary.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RcsTable.cs">
+      <DependentUpon>Dictionary.tt</DependentUpon>
+    </Compile>
     <Compile Include="zzdc_czlx.cs">
       <DependentUpon>MainDbContext.tt</DependentUpon>
     </Compile>
@@ -79,6 +100,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>MainDbContext.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="Dictionary.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Dictionary.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Dictionary.edmx.diagram">
+      <DependentUpon>Dictionary.edmx</DependentUpon>
+    </None>
     <None Include="MainDbContext.edmx.diagram">
       <DependentUpon>MainDbContext.edmx</DependentUpon>
     </None>
@@ -88,6 +116,16 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Dictionary.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Dictionary.edmx</DependentUpon>
+      <LastGenOutput>Dictionary.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Dictionary.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Dictionary.edmx</DependentUpon>
+      <LastGenOutput>Dictionary.cs</LastGenOutput>
+    </Content>
     <Content Include="MainDbContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MainDbContext.edmx</DependentUpon>

@@ -1,0 +1,68 @@
+﻿@model RcsTable
+@{
+    
+    Layout = null;
+}
+<script>
+    var model = @Html.Raw(Json.Encode(Model));
+    if(model==null)
+    {
+        model={
+            ID:"",
+            Name:"",
+            ParentID:0,
+            time:(new Date()).getTime()
+        };  
+    }
+    new Vue({
+        el:"#form1",
+        data:model,
+        methods:{
+            checker:function(e){
+                dataCheck(this.Name);
+            }
+        }
+    })
+
+    function dataCheck(name)
+    {
+        $('#submit').attr("disabled","disabled");
+        if(name=="")
+        {
+            
+        }
+        else{
+            model.time=(new Date()).getTime();
+            $.get('@Url.Action("NameCheck")',model,function(res){
+
+                if(res.time>=model.time)
+                {
+                    if(res.success)
+                    {
+                        $('#submit').removeAttr("disabled");
+                    }
+                    else{
+                    }
+                }
+            });
+        }
+    }
+
+</script>
+<form id="form1">
+    <div class="form-group">
+    <label for="ID">ID</label><input class="form-control" type="text" id="ID" readonly="readonly" v-model="ID" placeholder="自动编号"/>
+    </div>
+    <div class="form-group">
+        <label for="Name">页名</label><input class="form-control" type="text" id="Name" v-model.trim="Name" v-on:input="checker" placeholder="输入表名" autocomplete="off" />
+    </div>
+    <div class="form-group" hidden="hidden">
+        <label for="ParentID">上级ID</label><input class="form-control" type="text" id="ParentID" v-model="ParentID" placeholder="输入上级ID"  value="0"/>
+    </div>
+</form>
+<script>
+    $(function(){
+        dataCheck(model.Name);
+        //l.isLoading();  
+    });
+</script>

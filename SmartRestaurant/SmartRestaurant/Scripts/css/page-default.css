@@ -1,0 +1,35 @@
+﻿
+.tablehead{
+    background-color: #83b5cc;
+    font-size: 18px;
+    font-weight: bolder;
+}
+.eidt-btn-group{
+    float: left; 
+    padding-bottom: 5px;
+    padding-top:10px;
+    width:100%;
+    /*line-height:30px;*/
+}
+
+.eidt-btn-group button{
+    font-size:medium;
+    font-weight:bold;
+    /*line-height:25px;*/
+}
+.eidt-btn-group span{
+    margin-right:8px;
+}
+.logdingUI{
+    position:absolute;
+    top:30%;
+    left:45%;
+}
+.pager-size{
+    float:left;
+    width:200px;
+}
+.pager-num{
+    float:right;
+    width:200px;
+}

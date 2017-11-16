@@ -25,7 +25,7 @@ namespace SmartRestaurant.Infrastructure
                 {
                     Trace.TraceError(filterContext.Exception.ToString());
                 }
-                filterContext.ExceptionHandled = true;
+                //filterContext.ExceptionHandled = true;
             }
         }
     }

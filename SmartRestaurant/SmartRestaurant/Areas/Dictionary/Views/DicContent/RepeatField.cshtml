@@ -1,0 +1,52 @@
+﻿
+@{
+    Layout = null;
+
+    List<RcsDic> list = ViewBag.List as List<RcsDic>;
+    List<RcsTable> TableList = ViewBag.TableList as List<RcsTable>;
+
+}
+
+    <table style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    表
+                </th>
+                <th>
+                    字段名
+                </th>
+                <th>
+                    字段值
+                </th>
+            </tr>
+        </thead>
+@{
+
+    foreach (var tb in TableList)
+    {
+        var tlist = list.Where(p => p.TableID == tb.ID).ToList();
+            foreach (var t in tlist)
+            {
+                <tr><td>@tb.Name</td><td>@t.Name</td><td>@t.Value</td></tr>
+            }
+    }
+}
+    </table>
+
+<script>
+
+    function autoMerge()
+    {
+        ladda2.start();
+
+        $.post('@Url.Action("AutoMerge")', { Value: $('#targetlanguage').text(), IDs: "@Request["IDs"]" }, function (res) {
+            ladda2.stop();
+            warn("合并成功");
+
+            $("#modaldialog2").modal("hide");
+
+        })
+    }
+</script>
+
