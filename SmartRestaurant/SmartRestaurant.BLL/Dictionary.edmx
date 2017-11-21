@@ -22,6 +22,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ParentID" Type="int" />
+          <Property Name="Count" Type="int" Nullable="false" />
         </EntityType>
         <EntityContainer Name="hpf_DictionaryModelStoreContainer">
           <EntitySet Name="RcsDic" EntityType="Self.RcsDic" Schema="dbo" store:Type="Tables" />
@@ -48,6 +49,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ParentID" Type="Int32" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityContainer Name="DicMainDb" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="RcsDic" EntityType="Self.RcsDic" />
@@ -73,6 +75,7 @@
           <EntitySetMapping Name="RcsTable">
             <EntityTypeMapping TypeName="hpf_DictionaryModel.RcsTable">
               <MappingFragment StoreEntitySet="RcsTable">
+                <ScalarProperty Name="Count" ColumnName="Count" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ParentID" ColumnName="ParentID" />

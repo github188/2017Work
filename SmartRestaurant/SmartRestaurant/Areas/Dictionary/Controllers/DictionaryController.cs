@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SmartRestaurant.BLL;
 using System.Data.Entity.SqlServer;
+using System.Text;
 
 namespace SmartRestaurant.Areas.Dictionary.Controllers
 {
@@ -116,5 +117,81 @@ delete from RcsTable where ID in ('{0}')", string.Join("','", ID));
             return result;
         }
 
+        /// <summary>
+        /// 导出文件
+        /// </summary>
+        /// <param name="type">0为中文1为英文默认为英文</param>
+        /// <returns></returns>
+        public ActionResult  OutPutJs(int type=1)
+        {
+            using (DicMainDb db = new DicMainDb())
+            {
+                var tablelist = db.RcsTable.OrderBy(p=>p.ID).ToList();
+
+                int[] tableid = tablelist.Select(p => p.ID).ToArray();
+
+                var diclist = db.RcsDic.Where(p => tableid.Contains(p.TableID.Value)&&p.Type==1).ToList();
+
+                StringBuilder result = new StringBuilder();
+
+                result.Append("var dictionary = {\r\n");
+                if(type!=0)
+                {
+                    foreach (var table in tablelist)
+                    {
+                        var tabledic = diclist.Where(p => p.TableID == table.ID).ToList();
+
+                        result.Append("    " + table.Name + ": {\r\n");
+
+                        foreach (var dic in tabledic)
+                        {
+                            result.Append("    " + dic.Name + ": \"" + dic.Value + "\",\r\n");
+
+                        }
+
+                        if (tabledic.Count > 0)
+                        {
+                            result.Remove(result.Length - 3, 3);
+                            result.Append("\r\n");
+                        }
+
+                        result.Append("    },\r\n");
+
+                    }
+                }
+                else
+                {
+                    foreach (var table in tablelist)
+                    {
+                        var tabledic = diclist.Where(p => p.TableID == table.ID).ToList();
+
+                        result.Append("    " + table.Name + ": {\r\n");
+
+                        foreach (var dic in tabledic)
+                        {
+                            result.Append("    " + dic.Name + ": \"" + dic.Name + "\",\r\n");
+
+                        }
+
+                        if (tabledic.Count > 0)
+                        {
+                            result.Remove(result.Length - 3, 3);
+                            result.Append("\r\n");
+                        }
+
+                        result.Append("    },\r\n");
+
+                    }
+                }
+
+                result.Append("}");
+
+
+                return File(Encoding.UTF8.GetBytes(result.ToString()), "application/octet-stream", type==1?"en-us.js": "zh-cn.js");
+
+            }
+
+
+        }
     }
 }

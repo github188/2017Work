@@ -86,6 +86,8 @@ namespace SmartRestaurant.Areas.Dictionary.Controllers
                 if (t.ID == 0)
                 {
                     maindb.RcsDic.Add(t);
+                    var table = maindb.RcsTable.Where(p => p.ID == t.TableID).FirstOrDefault();
+                    table.Count = table.Count + 1;
                 }
                 else
                 {
@@ -111,7 +113,13 @@ namespace SmartRestaurant.Areas.Dictionary.Controllers
                 string sql = string.Format(@"delete from RcsDic where ID in ('{0}')", string.Join("','", ID));
 
                 int count = db.Database.ExecuteSqlCommand(sql);
-                if(count>0)
+
+                sql = @"update [dbo].[RcsTable] set Count=(
+select count(0) from [dbo].[RcsDic] t1
+where t1.TableID=[RcsTable].ID
+)";
+                db.Database.ExecuteSqlCommand(sql);
+                if (count>0)
                 {
                     return Json(new
                     {
@@ -152,6 +160,9 @@ namespace SmartRestaurant.Areas.Dictionary.Controllers
                 if(list.Count==0 || Sure)
                 {
                     db.RcsDic.Add(t);
+                    var table = db.RcsTable.Where(p => p.ID == t.TableID).FirstOrDefault();
+                    table.Count = table.Count + 1;
+
                     db.SaveChanges();
                     return Json(new { success = true, Code = 0 });
                 }
@@ -263,7 +274,7 @@ namespace SmartRestaurant.Areas.Dictionary.Controllers
                     entity.State = System.Data.Entity.EntityState.Deleted;
                 }
 
-                var defalutTable = db.RcsTable.Where(p => p.Name == "dictionary").First();
+                var defalutTable = db.RcsTable.Where(p => p.Name == "defaultdic").First();
 
 
                 RcsDic newmodel = new RcsDic();
@@ -276,6 +287,12 @@ namespace SmartRestaurant.Areas.Dictionary.Controllers
                 db.RcsDic.Add(newmodel);
 
                 db.SaveChanges();
+
+                string sql = @"update [dbo].[RcsTable] set Count=(
+select count(0) from [dbo].[RcsDic] t1
+where t1.TableID=[RcsTable].ID
+)";
+                db.Database.ExecuteSqlCommand(sql);
             }
 
             return Json(1);

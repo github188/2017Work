@@ -6,11 +6,13 @@
 @* 按钮行 *@
 
 <div style="clear:both"></div>
-<div class="input-group col-md-3" style="margin-top:20px;margin-bottom:10px;" >
+<div class="input-group col-lg-3" style="margin-top:20px;margin-bottom:10px;width:50%;" >
     <input id="searchText" type="text" class="form-control" placeholder="请输入页名" />
     <span class="input-group-btn">
         <button class="btn btn-info btn-search" onclick="query()">查找</button>
         <button class="btn btn-info btn-search" style="margin-left:3px" data-toggle="modal" data-target="#modaldialog" data-title="添加">添加</button>
+        <a class="btn btn-info " style="margin-left:3px"  href="@Url.Action("OutPutJs")?type=1" target="_blank">导出英文包</a>
+        <a class="btn btn-info " style="margin-left:3px" href="@Url.Action("OutPutJs")?type=0" target="_blank">导出中文包</a>
     </span>
 </div>  
 <div class="table-responsive">
@@ -71,7 +73,12 @@
                     }, {
                         field: 'Name',
                         title: '页名',
-                        width: '50%'
+                        width: '40%'
+                    },
+                    {
+                        field: 'Count',
+                        title: '记录数',
+                        width: '10%'
                     },
                     {
                         field: 'ID',

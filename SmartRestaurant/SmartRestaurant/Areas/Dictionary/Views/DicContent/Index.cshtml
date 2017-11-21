@@ -297,6 +297,12 @@
 
     function autoCreate(Sure)
     {
+        if ($('#sourcelanguage').text().length == 0)
+        {
+            warn("字段名为空");
+
+            return false;
+        }
         if (Sure)
         {
             ladda3.start();
