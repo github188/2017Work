@@ -7,7 +7,7 @@ using SmartRestaurant.Model;
 
 namespace SmartRestaurant.Areas.Restaurant.Controllers
 {
-    public class HomeController : SmartRestaurant.Controllers.BaseController<RcsDic>
+    public class HomeController : SmartRestaurant.Controllers.BaseController<sys_dict>
     {
         // GET: Restaurant/Home
         public ActionResult Index()

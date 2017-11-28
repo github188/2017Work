@@ -1562,6 +1562,10 @@
     <Content Include="Areas\Restaurant\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Restaurant\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Restaurant\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Mobiel\Views\web.config" />
+    <Content Include="Areas\Mobiel\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Mobiel\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Mobiel\Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\release.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\css\page-default.css" />
@@ -1627,6 +1631,8 @@
     <Compile Include="Areas\Dictionary\Controllers\DicContentController.cs" />
     <Compile Include="Areas\Dictionary\Controllers\DictionaryController.cs" />
     <Compile Include="Areas\Dictionary\DictionaryAreaRegistration.cs" />
+    <Compile Include="Areas\Mobiel\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Mobiel\MobielAreaRegistration.cs" />
     <Compile Include="Areas\Restaurant\Controllers\HomeController.cs" />
     <Compile Include="Areas\Restaurant\RestaurantAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -1641,6 +1647,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Dictionary\Models\" />
+    <Folder Include="Areas\Mobiel\Models\" />
     <Folder Include="Areas\Restaurant\Models\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Base\" />
