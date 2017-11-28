@@ -4,22 +4,245 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SmartRestaurantModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SmartRestaurantModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sys_dict">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pid" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="value" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="rank" Type="int" Nullable="false" />
+          <Property Name="remark" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="sys_menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="url" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="rank" Type="int" Nullable="false" />
+          <Property Name="remark" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="sys_relation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="int" Nullable="false" />
+          <Property Name="password" Type="int" Nullable="false" />
+          <Property Name="name" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sys_role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="rank" Type="int" Nullable="false" />
+          <Property Name="remark" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="sys_user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="rank" Type="int" Nullable="false" />
+          <Property Name="remark" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="zzdc_cplx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="rank" Type="int" Nullable="false" />
+          <Property Name="remank" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="zzdc_cpwlxh">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cpxx_id" Type="int" Nullable="false" />
+          <Property Name="wlxx_id" Type="int" Nullable="false" />
+          <Property Name="xhsl" Type="float" Nullable="false" />
+          <Property Name="zd_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="zzdc_cpxx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="img" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="cplx_id" Type="int" Nullable="false" />
+          <Property Name="zd_id" Type="int" Nullable="false" />
+          <Property Name="price" Type="float" Nullable="false" />
+          <Property Name="sfsj" Type="int" Nullable="false" />
+          <Property Name="rank" Type="int" Nullable="false" />
+          <Property Name="remark" Type="varchar" MaxLength="256" />
+        </EntityType>
         <EntityType Name="zzdc_czlx">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="name" Type="varchar" MaxLength="36" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="rs" Type="int" Nullable="false" />
           <Property Name="rank" Type="int" Nullable="false" />
           <Property Name="remank" Type="varchar" MaxLength="256" />
         </EntityType>
+        <EntityType Name="zzdc_czxx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="zh" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="czlx_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="int" />
+          <Property Name="rank" Type="int" Nullable="false" />
+          <Property Name="remark" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="zzdc_ddxq">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ddxx_id" Type="int" Nullable="false" />
+          <Property Name="cpxx_id" Type="int" Nullable="false" />
+          <Property Name="cpsl" Type="float" Nullable="false" />
+          <Property Name="zd_id" Type="int" Nullable="false" />
+          <Property Name="remark" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="zzdc_ddxx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="czxx_id" Type="int" Nullable="false" />
+          <Property Name="cjsj" Type="datetime" Nullable="false" />
+          <Property Name="cjr" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="remark" Type="varchar" MaxLength="256" />
+          <Property Name="jdsj" Type="datetime" />
+          <Property Name="jdr" Type="varchar" MaxLength="32" />
+          <Property Name="jd_remark" Type="varchar" MaxLength="256" />
+          <Property Name="fksj" Type="datetime" />
+          <Property Name="fkr" Type="varchar" MaxLength="32" />
+          <Property Name="yxfk" Type="float" />
+          <Property Name="sjfk" Type="float" />
+          <Property Name="zd_id" Type="int" />
+          <Property Name="pj" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="zzdc_jhxq">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="wlxx_id" Type="int" Nullable="false" />
+          <Property Name="jhsl" Type="float" Nullable="false" />
+          <Property Name="jhbz" Type="varchar" MaxLength="256" />
+          <Property Name="dhsl" Type="float" />
+          <Property Name="dhbz" Type="varchar" MaxLength="256" />
+          <Property Name="zd_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="zzdc_jhxx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ydsj" Type="datetime" Nullable="false" />
+          <Property Name="cjsj" Type="datetime" Nullable="false" />
+          <Property Name="cjr" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="remark" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="zzdc_wllx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="rank" Type="int" Nullable="false" />
+          <Property Name="remark" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="zzdc_wlxhxq">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="xsxx_id" Type="int" Nullable="false" />
+          <Property Name="wlxx_id" Type="int" Nullable="false" />
+          <Property Name="yjxhsl" Type="float" Nullable="false" />
+          <Property Name="cpxhsl" Type="float" Nullable="false" />
+          <Property Name="ddxhsl" Type="float" />
+          <Property Name="sjxhsl" Type="float" />
+          <Property Name="remark" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="zzdc_wlxx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="wllx_id" Type="int" Nullable="false" />
+          <Property Name="kcsl" Type="float" Nullable="false" />
+          <Property Name="zd_id" Type="int" Nullable="false" />
+          <Property Name="rank" Type="int" Nullable="false" />
+          <Property Name="remark" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="zzdc_xsxq">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="xsxx_id" Type="int" Nullable="false" />
+          <Property Name="cpxx_id" Type="int" Nullable="false" />
+          <Property Name="jhbz" Type="float" Nullable="false" />
+          <Property Name="dhsl" Type="float" />
+        </EntityType>
+        <EntityType Name="zzdc_xsxx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="yxqssj" Type="datetime" Nullable="false" />
+          <Property Name="yxjssj" Type="datetime" Nullable="false" />
+          <Property Name="yxbz" Type="varchar" MaxLength="256" />
+          <Property Name="cjsj" Type="datetime" Nullable="false" />
+          <Property Name="cjr" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="xsqssj" Type="datetime" />
+          <Property Name="xsjssj" Type="datetime" />
+          <Property Name="xsbz" Type="varchar" MaxLength="256" />
+          <Property Name="lrsj" Type="datetime" />
+          <Property Name="lrr" Type="varchar" MaxLength="32" />
+        </EntityType>
         <EntityContainer Name="SmartRestaurantModelStoreContainer">
+          <EntitySet Name="sys_dict" EntityType="Self.sys_dict" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys_menu" EntityType="Self.sys_menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys_relation" EntityType="Self.sys_relation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys_role" EntityType="Self.sys_role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys_user" EntityType="Self.sys_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zzdc_cplx" EntityType="Self.zzdc_cplx" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zzdc_cpwlxh" EntityType="Self.zzdc_cpwlxh" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zzdc_cpxx" EntityType="Self.zzdc_cpxx" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="zzdc_czlx" EntityType="Self.zzdc_czlx" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zzdc_czxx" EntityType="Self.zzdc_czxx" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zzdc_ddxq" EntityType="Self.zzdc_ddxq" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zzdc_ddxx" EntityType="Self.zzdc_ddxx" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zzdc_jhxq" EntityType="Self.zzdc_jhxq" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zzdc_jhxx" EntityType="Self.zzdc_jhxx" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zzdc_wllx" EntityType="Self.zzdc_wllx" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zzdc_wlxhxq" EntityType="Self.zzdc_wlxhxq" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zzdc_wlxx" EntityType="Self.zzdc_wlxx" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zzdc_xsxq" EntityType="Self.zzdc_xsxq" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zzdc_xsxx" EntityType="Self.zzdc_xsxx" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SmartRestaurantModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -28,14 +251,238 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="36" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="rs" Type="Int32" Nullable="false" />
           <Property Name="rank" Type="Int32" Nullable="false" />
           <Property Name="remank" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="MainDb" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="zzdc_czlx" EntityType="Self.zzdc_czlx" />
+          <EntitySet Name="sys_dict" EntityType="SmartRestaurantModel.sys_dict" />
+          <EntitySet Name="sys_menu" EntityType="SmartRestaurantModel.sys_menu" />
+          <EntitySet Name="sys_relation" EntityType="SmartRestaurantModel.sys_relation" />
+          <EntitySet Name="sys_role" EntityType="SmartRestaurantModel.sys_role" />
+          <EntitySet Name="sys_user" EntityType="SmartRestaurantModel.sys_user" />
+          <EntitySet Name="zzdc_cplx" EntityType="SmartRestaurantModel.zzdc_cplx" />
+          <EntitySet Name="zzdc_cpwlxh" EntityType="SmartRestaurantModel.zzdc_cpwlxh" />
+          <EntitySet Name="zzdc_cpxx" EntityType="SmartRestaurantModel.zzdc_cpxx" />
+          <EntitySet Name="zzdc_czxx" EntityType="SmartRestaurantModel.zzdc_czxx" />
+          <EntitySet Name="zzdc_ddxq" EntityType="SmartRestaurantModel.zzdc_ddxq" />
+          <EntitySet Name="zzdc_ddxx" EntityType="SmartRestaurantModel.zzdc_ddxx" />
+          <EntitySet Name="zzdc_jhxq" EntityType="SmartRestaurantModel.zzdc_jhxq" />
+          <EntitySet Name="zzdc_jhxx" EntityType="SmartRestaurantModel.zzdc_jhxx" />
+          <EntitySet Name="zzdc_wllx" EntityType="SmartRestaurantModel.zzdc_wllx" />
+          <EntitySet Name="zzdc_wlxhxq" EntityType="SmartRestaurantModel.zzdc_wlxhxq" />
+          <EntitySet Name="zzdc_wlxx" EntityType="SmartRestaurantModel.zzdc_wlxx" />
+          <EntitySet Name="zzdc_xsxq" EntityType="SmartRestaurantModel.zzdc_xsxq" />
+          <EntitySet Name="zzdc_xsxx" EntityType="SmartRestaurantModel.zzdc_xsxx" />
         </EntityContainer>
+        <EntityType Name="sys_dict">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pid" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="rank" Type="Int32" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sys_menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="url" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="rank" Type="Int32" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sys_relation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="Int32" Nullable="false" />
+          <Property Name="password" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sys_role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="rank" Type="Int32" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sys_user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="rank" Type="Int32" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="zzdc_cplx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="rank" Type="Int32" Nullable="false" />
+          <Property Name="remank" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="zzdc_cpwlxh">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cpxx_id" Type="Int32" Nullable="false" />
+          <Property Name="wlxx_id" Type="Int32" Nullable="false" />
+          <Property Name="xhsl" Type="Double" Nullable="false" />
+          <Property Name="zd_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="zzdc_cpxx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="img" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="cplx_id" Type="Int32" Nullable="false" />
+          <Property Name="zd_id" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Double" Nullable="false" />
+          <Property Name="sfsj" Type="Int32" Nullable="false" />
+          <Property Name="rank" Type="Int32" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="zzdc_czxx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="zh" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="czlx_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="rank" Type="Int32" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="zzdc_ddxq">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ddxx_id" Type="Int32" Nullable="false" />
+          <Property Name="cpxx_id" Type="Int32" Nullable="false" />
+          <Property Name="cpsl" Type="Double" Nullable="false" />
+          <Property Name="zd_id" Type="Int32" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="zzdc_ddxx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="czxx_id" Type="Int32" Nullable="false" />
+          <Property Name="cjsj" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="cjr" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="jdsj" Type="DateTime" Precision="3" />
+          <Property Name="jdr" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="jd_remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="fksj" Type="DateTime" Precision="3" />
+          <Property Name="fkr" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="yxfk" Type="Double" />
+          <Property Name="sjfk" Type="Double" />
+          <Property Name="zd_id" Type="Int32" />
+          <Property Name="pj" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="zzdc_jhxq">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="wlxx_id" Type="Int32" Nullable="false" />
+          <Property Name="jhsl" Type="Double" Nullable="false" />
+          <Property Name="jhbz" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="dhsl" Type="Double" />
+          <Property Name="dhbz" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="zd_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="zzdc_jhxx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ydsj" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="cjsj" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="cjr" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="zzdc_wllx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="rank" Type="Int32" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="zzdc_wlxhxq">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="xsxx_id" Type="Int32" Nullable="false" />
+          <Property Name="wlxx_id" Type="Int32" Nullable="false" />
+          <Property Name="yjxhsl" Type="Double" Nullable="false" />
+          <Property Name="cpxhsl" Type="Double" Nullable="false" />
+          <Property Name="ddxhsl" Type="Double" />
+          <Property Name="sjxhsl" Type="Double" />
+          <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="zzdc_wlxx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="wllx_id" Type="Int32" Nullable="false" />
+          <Property Name="kcsl" Type="Double" Nullable="false" />
+          <Property Name="zd_id" Type="Int32" Nullable="false" />
+          <Property Name="rank" Type="Int32" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="zzdc_xsxq">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="xsxx_id" Type="Int32" Nullable="false" />
+          <Property Name="cpxx_id" Type="Int32" Nullable="false" />
+          <Property Name="jhbz" Type="Double" Nullable="false" />
+          <Property Name="dhsl" Type="Double" />
+        </EntityType>
+        <EntityType Name="zzdc_xsxx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="yxqssj" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="yxjssj" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="yxbz" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="cjsj" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="cjr" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="xsqssj" Type="DateTime" Precision="3" />
+          <Property Name="xsjssj" Type="DateTime" Precision="3" />
+          <Property Name="xsbz" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="lrsj" Type="DateTime" Precision="3" />
+          <Property Name="lrr" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -50,6 +497,230 @@
                 <ScalarProperty Name="rs" ColumnName="rs" />
                 <ScalarProperty Name="rank" ColumnName="rank" />
                 <ScalarProperty Name="remank" ColumnName="remank" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_dict">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.sys_dict">
+              <MappingFragment StoreEntitySet="sys_dict">
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_menu">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.sys_menu">
+              <MappingFragment StoreEntitySet="sys_menu">
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_relation">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.sys_relation">
+              <MappingFragment StoreEntitySet="sys_relation">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_role">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.sys_role">
+              <MappingFragment StoreEntitySet="sys_role">
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_user">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.sys_user">
+              <MappingFragment StoreEntitySet="sys_user">
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zzdc_cplx">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.zzdc_cplx">
+              <MappingFragment StoreEntitySet="zzdc_cplx">
+                <ScalarProperty Name="remank" ColumnName="remank" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zzdc_cpwlxh">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.zzdc_cpwlxh">
+              <MappingFragment StoreEntitySet="zzdc_cpwlxh">
+                <ScalarProperty Name="zd_id" ColumnName="zd_id" />
+                <ScalarProperty Name="xhsl" ColumnName="xhsl" />
+                <ScalarProperty Name="wlxx_id" ColumnName="wlxx_id" />
+                <ScalarProperty Name="cpxx_id" ColumnName="cpxx_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zzdc_cpxx">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.zzdc_cpxx">
+              <MappingFragment StoreEntitySet="zzdc_cpxx">
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="sfsj" ColumnName="sfsj" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="zd_id" ColumnName="zd_id" />
+                <ScalarProperty Name="cplx_id" ColumnName="cplx_id" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zzdc_czxx">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.zzdc_czxx">
+              <MappingFragment StoreEntitySet="zzdc_czxx">
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="czlx_id" ColumnName="czlx_id" />
+                <ScalarProperty Name="zh" ColumnName="zh" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zzdc_ddxq">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.zzdc_ddxq">
+              <MappingFragment StoreEntitySet="zzdc_ddxq">
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="zd_id" ColumnName="zd_id" />
+                <ScalarProperty Name="cpsl" ColumnName="cpsl" />
+                <ScalarProperty Name="cpxx_id" ColumnName="cpxx_id" />
+                <ScalarProperty Name="ddxx_id" ColumnName="ddxx_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zzdc_ddxx">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.zzdc_ddxx">
+              <MappingFragment StoreEntitySet="zzdc_ddxx">
+                <ScalarProperty Name="pj" ColumnName="pj" />
+                <ScalarProperty Name="zd_id" ColumnName="zd_id" />
+                <ScalarProperty Name="sjfk" ColumnName="sjfk" />
+                <ScalarProperty Name="yxfk" ColumnName="yxfk" />
+                <ScalarProperty Name="fkr" ColumnName="fkr" />
+                <ScalarProperty Name="fksj" ColumnName="fksj" />
+                <ScalarProperty Name="jd_remark" ColumnName="jd_remark" />
+                <ScalarProperty Name="jdr" ColumnName="jdr" />
+                <ScalarProperty Name="jdsj" ColumnName="jdsj" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="cjr" ColumnName="cjr" />
+                <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+                <ScalarProperty Name="czxx_id" ColumnName="czxx_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zzdc_jhxq">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.zzdc_jhxq">
+              <MappingFragment StoreEntitySet="zzdc_jhxq">
+                <ScalarProperty Name="zd_id" ColumnName="zd_id" />
+                <ScalarProperty Name="dhbz" ColumnName="dhbz" />
+                <ScalarProperty Name="dhsl" ColumnName="dhsl" />
+                <ScalarProperty Name="jhbz" ColumnName="jhbz" />
+                <ScalarProperty Name="jhsl" ColumnName="jhsl" />
+                <ScalarProperty Name="wlxx_id" ColumnName="wlxx_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zzdc_jhxx">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.zzdc_jhxx">
+              <MappingFragment StoreEntitySet="zzdc_jhxx">
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="cjr" ColumnName="cjr" />
+                <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+                <ScalarProperty Name="ydsj" ColumnName="ydsj" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zzdc_wllx">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.zzdc_wllx">
+              <MappingFragment StoreEntitySet="zzdc_wllx">
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zzdc_wlxhxq">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.zzdc_wlxhxq">
+              <MappingFragment StoreEntitySet="zzdc_wlxhxq">
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="sjxhsl" ColumnName="sjxhsl" />
+                <ScalarProperty Name="ddxhsl" ColumnName="ddxhsl" />
+                <ScalarProperty Name="cpxhsl" ColumnName="cpxhsl" />
+                <ScalarProperty Name="yjxhsl" ColumnName="yjxhsl" />
+                <ScalarProperty Name="wlxx_id" ColumnName="wlxx_id" />
+                <ScalarProperty Name="xsxx_id" ColumnName="xsxx_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zzdc_wlxx">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.zzdc_wlxx">
+              <MappingFragment StoreEntitySet="zzdc_wlxx">
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="zd_id" ColumnName="zd_id" />
+                <ScalarProperty Name="kcsl" ColumnName="kcsl" />
+                <ScalarProperty Name="wllx_id" ColumnName="wllx_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zzdc_xsxq">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.zzdc_xsxq">
+              <MappingFragment StoreEntitySet="zzdc_xsxq">
+                <ScalarProperty Name="dhsl" ColumnName="dhsl" />
+                <ScalarProperty Name="jhbz" ColumnName="jhbz" />
+                <ScalarProperty Name="cpxx_id" ColumnName="cpxx_id" />
+                <ScalarProperty Name="xsxx_id" ColumnName="xsxx_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zzdc_xsxx">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.zzdc_xsxx">
+              <MappingFragment StoreEntitySet="zzdc_xsxx">
+                <ScalarProperty Name="lrr" ColumnName="lrr" />
+                <ScalarProperty Name="lrsj" ColumnName="lrsj" />
+                <ScalarProperty Name="xsbz" ColumnName="xsbz" />
+                <ScalarProperty Name="xsjssj" ColumnName="xsjssj" />
+                <ScalarProperty Name="xsqssj" ColumnName="xsqssj" />
+                <ScalarProperty Name="cjr" ColumnName="cjr" />
+                <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+                <ScalarProperty Name="yxbz" ColumnName="yxbz" />
+                <ScalarProperty Name="yxjssj" ColumnName="yxjssj" />
+                <ScalarProperty Name="yxqssj" ColumnName="yxqssj" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

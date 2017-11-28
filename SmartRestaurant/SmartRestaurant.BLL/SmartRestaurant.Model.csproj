@@ -91,7 +91,61 @@
     <Compile Include="RcsTable.cs">
       <DependentUpon>Dictionary.tt</DependentUpon>
     </Compile>
+    <Compile Include="sys_dict.cs">
+      <DependentUpon>MainDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sys_menu.cs">
+      <DependentUpon>MainDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sys_relation.cs">
+      <DependentUpon>MainDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sys_role.cs">
+      <DependentUpon>MainDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sys_user.cs">
+      <DependentUpon>MainDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="zzdc_cplx.cs">
+      <DependentUpon>MainDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="zzdc_cpwlxh.cs">
+      <DependentUpon>MainDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="zzdc_cpxx.cs">
+      <DependentUpon>MainDbContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="zzdc_czlx.cs">
+      <DependentUpon>MainDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="zzdc_czxx.cs">
+      <DependentUpon>MainDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="zzdc_ddxq.cs">
+      <DependentUpon>MainDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="zzdc_ddxx.cs">
+      <DependentUpon>MainDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="zzdc_jhxq.cs">
+      <DependentUpon>MainDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="zzdc_jhxx.cs">
+      <DependentUpon>MainDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="zzdc_wllx.cs">
+      <DependentUpon>MainDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="zzdc_wlxhxq.cs">
+      <DependentUpon>MainDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="zzdc_wlxx.cs">
+      <DependentUpon>MainDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="zzdc_xsxq.cs">
+      <DependentUpon>MainDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="zzdc_xsxx.cs">
       <DependentUpon>MainDbContext.tt</DependentUpon>
     </Compile>
   </ItemGroup>
