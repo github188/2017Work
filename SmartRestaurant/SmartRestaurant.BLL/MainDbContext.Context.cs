@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SmartRestaurant.BLL
+namespace SmartRestaurant.Model
 {
     using System;
     using System.Data.Entity;

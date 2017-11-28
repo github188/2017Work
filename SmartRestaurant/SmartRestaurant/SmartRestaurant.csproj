@@ -1558,6 +1558,7 @@
     <Content Include="Content\navmenu\fonts\font-awesome-4.2.0\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\navmenu\fonts\font-awesome-4.2.0\fonts\fontawesome-webfont.woff" />
     <Content Include="Areas\Dictionary\Views\DicContent\RepeatField.cshtml" />
+    <Content Include="Areas\Restaurant\Views\web.config" />
     <None Include="Properties\PublishProfiles\release.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\css\page-default.css" />
@@ -1623,6 +1624,9 @@
     <Compile Include="Areas\Dictionary\Controllers\DicContentController.cs" />
     <Compile Include="Areas\Dictionary\Controllers\DictionaryController.cs" />
     <Compile Include="Areas\Dictionary\DictionaryAreaRegistration.cs" />
+    <Compile Include="Areas\Restaurant\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Restaurant\RestaurantAreaRegistration.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1634,12 +1638,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Dictionary\Models\" />
+    <Folder Include="Areas\Restaurant\Models\" />
+    <Folder Include="Areas\Restaurant\Views\Home\" />
+    <Folder Include="Areas\Restaurant\Views\Shared\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SmartRestaurant.BLL\SmartRestaurant.BLL.csproj">
-      <Project>{9fc534f5-d582-4db7-98d0-d416a8a105bf}</Project>
+    <ProjectReference Include="..\SmartRestaurant.BLL1\SmartRestaurant.BLL.csproj">
+      <Project>{7c79caa5-1f06-4c04-aadf-0cd9a4335389}</Project>
       <Name>SmartRestaurant.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartRestaurant.BLL\SmartRestaurant.Model.csproj">
+      <Project>{9fc534f5-d582-4db7-98d0-d416a8a105bf}</Project>
+      <Name>SmartRestaurant.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

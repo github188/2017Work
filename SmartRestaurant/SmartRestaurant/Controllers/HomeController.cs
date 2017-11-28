@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using SmartRestaurant.BLL;
+using SmartRestaurant.Model;
 using System.Linq;
 
 namespace SmartRestaurant.Controllers

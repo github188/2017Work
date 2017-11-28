@@ -5,7 +5,13 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant", "SmartRestaurant\SmartRestaurant.csproj", "{800E53F9-FE66-40A6-96EA-341A0BEFDAAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.BLL", "SmartRestaurant.BLL\SmartRestaurant.BLL.csproj", "{9FC534F5-D582-4DB7-98D0-D416A8A105BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{B77CB42F-80BB-4422-8C21-A3CAA7720854}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.Model", "SmartRestaurant.BLL\SmartRestaurant.Model.csproj", "{9FC534F5-D582-4DB7-98D0-D416A8A105BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.BLL", "SmartRestaurant.BLL1\SmartRestaurant.BLL.csproj", "{7C79CAA5-1F06-4C04-AADF-0CD9A4335389}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.DAL", "SmartRestaurant.DAL\SmartRestaurant.DAL.csproj", "{63AA5174-F1D4-43C5-978B-4BADC2DB6541}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +23,22 @@ Global
 		{800E53F9-FE66-40A6-96EA-341A0BEFDAAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{800E53F9-FE66-40A6-96EA-341A0BEFDAAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{800E53F9-FE66-40A6-96EA-341A0BEFDAAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B77CB42F-80BB-4422-8C21-A3CAA7720854}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B77CB42F-80BB-4422-8C21-A3CAA7720854}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B77CB42F-80BB-4422-8C21-A3CAA7720854}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B77CB42F-80BB-4422-8C21-A3CAA7720854}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9FC534F5-D582-4DB7-98D0-D416A8A105BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9FC534F5-D582-4DB7-98D0-D416A8A105BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FC534F5-D582-4DB7-98D0-D416A8A105BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FC534F5-D582-4DB7-98D0-D416A8A105BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C79CAA5-1F06-4C04-AADF-0CD9A4335389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C79CAA5-1F06-4C04-AADF-0CD9A4335389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C79CAA5-1F06-4C04-AADF-0CD9A4335389}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C79CAA5-1F06-4C04-AADF-0CD9A4335389}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63AA5174-F1D4-43C5-978B-4BADC2DB6541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63AA5174-F1D4-43C5-978B-4BADC2DB6541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63AA5174-F1D4-43C5-978B-4BADC2DB6541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63AA5174-F1D4-43C5-978B-4BADC2DB6541}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
