@@ -24,7 +24,8 @@ namespace SmartRestaurant
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            if (Context.Request.FilePath == "/") Context.RewritePath("/Dictionary/Dictionary");
+            // if (Context.Request.FilePath == "/") Context.RewritePath("/Dictionary/Dictionary");
+            if (Context.Request.FilePath == "/") Context.RewritePath("/Restaurant/Home");
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)

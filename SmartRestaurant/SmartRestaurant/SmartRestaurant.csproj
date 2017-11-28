@@ -1559,6 +1559,9 @@
     <Content Include="Content\navmenu\fonts\font-awesome-4.2.0\fonts\fontawesome-webfont.woff" />
     <Content Include="Areas\Dictionary\Views\DicContent\RepeatField.cshtml" />
     <Content Include="Areas\Restaurant\Views\web.config" />
+    <Content Include="Areas\Restaurant\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\release.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\css\page-default.css" />
@@ -1639,8 +1642,6 @@
   <ItemGroup>
     <Folder Include="Areas\Dictionary\Models\" />
     <Folder Include="Areas\Restaurant\Models\" />
-    <Folder Include="Areas\Restaurant\Views\Home\" />
-    <Folder Include="Areas\Restaurant\Views\Shared\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
