@@ -11,7 +11,10 @@ namespace SmartRestaurant.Areas.Mobiel.Controllers
         // GET: Mobiel/Home
         public ActionResult Index()
         {
+
             return View();
         }
+
+
     }
 }

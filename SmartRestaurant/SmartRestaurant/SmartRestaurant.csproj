@@ -118,6 +118,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\img\down.png" />
+    <Content Include="Content\img\pic.png" />
+    <Content Include="Content\img\up.png" />
     <Content Include="Content\navmenu\css\demo.css" />
     <Content Include="Content\navmenu\css\menu_bubble.css" />
     <Content Include="Content\navmenu\css\menu_cornerbox.css" />
@@ -1581,6 +1584,8 @@
     <Content Include="Scripts\ladda\dist\ladda.min.js" />
     <Content Include="Scripts\ladda\dist\spin.js" />
     <Content Include="Scripts\ladda\dist\spin.min.js" />
+    <Content Include="Scripts\mobiel\css\pagedefault.css" />
+    <Content Include="Scripts\mobiel\pagedefault.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\vue\vue.min.js" />
     <Content Include="Views\Web.config">

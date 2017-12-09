@@ -1,0 +1,152 @@
+﻿html, body, div, p, form, label, ul, li, dl, dt, dd, ol, img, button, b, em, strong, small, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    list-style: none;
+    font-style: normal;
+}
+html{
+    height:100%;
+}
+
+body {
+    font-family: SimHei,'Microsoft YaHei',Arial,'Droid Sans',sans-serif;
+    font-size: 14px;
+    color: #333;
+    background: #fff;
+    padding: 0;
+    min-width: 300px;
+    /*max-width: 640px;*/
+    margin: 0 auto;
+    height:100%;
+}
+.main-body{
+    /*display:-webkit-flex;*/
+    display:flex;
+    flex-direction:row;
+    width:100%;
+    height:calc(100% - 10rem);
+}
+
+.main-left{
+    width:25%;
+    background-color:rgba(242,242,242,0.7);
+}
+.main-menu li{
+    margin:0.2rem 0rem 0.2rem 0rem;
+    background-color:rgba(242,242,242,1);
+    min-height:5rem;
+    font-size:2.8rem;
+    padding:1rem 0 1rem 0;
+    text-align:center;
+}
+
+.li-active{
+    background-color:#fff !important;
+}
+
+.main-right{
+    width:80%;
+    /*height:50rem;*/
+    overflow-y:scroll;
+}
+.head{
+    min-height:3rem;
+    width:100%;
+    text-align:center;
+}
+
+.main-right>div>h3{
+    background-color:rgba(242,242,242,1);
+}
+
+.check-btn button.minus{
+    background: url(/Content/img/down.png) no-repeat;
+    background-size: 2rem 2rem;
+}
+.check-btn button.add{
+    background: url(/Content/img/up.png) no-repeat;
+    background-size: 2rem 2rem;
+    width:2rem;
+    height:2rem;
+}  
+.check-btn  button.minus{
+    background:url(/Content/img/down.png) no-repeat;
+    background-size: 2rem 2rem;
+    width:2rem;
+    height:2rem;} 
+.check-btn i{
+    text-align:center;
+    font-style:normal;
+    vertical-align:top;
+    font-size:1.8rem;
+}
+
+.content-item{
+    display:flex;
+    flex-direction:row;
+    align-items:flex-start;
+    min-height:8rem;
+    /*text-align:center;*/
+    padding:1rem 0 1rem 0;
+}
+.menu-img{
+    height:6rem;
+    width:6rem;
+    text-align:center;
+    line-height:6rem;
+}
+.menu-txt{
+    height: calc(100% - 6rem);
+    width: calc(100% - 6rem);
+}
+.list2{
+    display:flex;
+    flex-direction:row;
+    width:100%;
+    justify-content:space-between;
+    padding-right:2rem;
+}
+.check-btn{
+}
+.footer{
+    padding:0.2rem 0 0.2rem 0;
+    position:fixed;
+    bottom:0;
+    height:6.5rem;
+    width:100%;
+    background-color:rgba(80,80,80,0.7);
+    line-height:6.5rem;
+    font-size:3rem;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
+.shoping span{
+    font-size:5rem;
+    line-height:6rem;
+}
+.shoping{
+    background-color:#ffd100;
+    display:inline-block;
+    width:6rem;
+    height:6rem;
+    line-height:6rem;
+    text-align:center;
+    border-radius:50%;
+    margin-left:1rem;
+}
+.footer .left {
+    width:14rem;
+    font-size:2rem;
+    line-height:2rem;
+    align-self:center;
+}
+.footer .right{
+    /*background-color:rgb(58, 179, 196);*/
+    width:10rem;
+    font-size:2.5rem;
+}
+.price{
+    display:none;
+}
