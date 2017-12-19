@@ -121,6 +121,8 @@ body {
     display:flex;
     flex-direction:row;
     justify-content:space-between;
+    z-index:99;
+
 }
 .shoping span{
     font-size:5rem;
@@ -149,4 +151,61 @@ body {
 }
 .price{
     display:none;
+}
+.shoping_car_content{
+    position:fixed;
+    bottom:6.5rem;
+    width:100%;
+    min-height:8rem;
+    max-height:20rem;
+    overflow-y:scroll;
+    background-color:rgba(220,220,220,0.6);
+    transform:translate3d(0,0,0);
+   -webkit-transition: -webkit-transform 1s;
+	transition: transform 1s;
+    z-index:10;
+}
+
+.shoping_car_content .topbar{
+    height:2rem;
+    background-color:#779bd0;
+    text-align:center;
+    /*padding-right:1rem;*/
+    width:100%;
+    font-size:2rem;
+}
+
+.bottomhidden{
+    transform:translate3d(0,calc(100% + 7rem),0);
+    -webkit-transition: -webkit-transform 1s;
+	transition: transform 1s;
+}
+.shoping_car_content ul{
+    padding:0 1rem 0 1rem;
+    font-size:1.8rem;
+}
+.shoping_car_content li{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
+.itemlist{
+    width:100%;
+    font:normal normal bold 2rem arial;
+}
+.itemlist > li{
+    width:100%;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
+.threeLayout{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
+.toputil{
+    font-size:3rem;
+    color:#799e9e;
+    font-weight:900;
 }

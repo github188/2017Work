@@ -1,4 +1,4 @@
-﻿
+﻿@model List<SmartRestaurant.Areas.Mobiel.Controllers.Menu>
 @{
     ViewBag.Title = "Index";
     Layout = null;
@@ -61,188 +61,64 @@
 
         </div>
     </div>
-    <div class="footer"><div class="shoping"><span class="glyphicon glyphicon-calendar"></span></div><div class="left">
+    <div class="footer"><div class="shoping" onclick="footerTigger()"><span class="glyphicon glyphicon-calendar"></span></div><div class="left">
     已选：<span id="totalcountshow">{{totalCount}}</span>份
     <br />
     总计：￥<span id="totalpriceshow">{{totalPrice.toFixed(2)}}</span>元
 </div>
-<button id="submit" class="right btn btn-primary">
+<button id="submit" class="right btn btn-primary" onclick="GotoConfrim()">
     提交
-</button>   </div>
+</button>   
+    </div>
+
+    <div id="shoping_car_content" class="shoping_car_content bottomhidden">
+        <div class="topbar" onclick="footerTigger()" ><span class='glyphicon glyphicon-chevron-down'></span></div>
+        <div v-if="currentChoiceItems.length>0">已选菜品</div>
+        <ul>
+            <li v-for="item in currentChoiceItems">
+                <span>{{item.name}}</span>
+                <span >{{item.price*item.count}}</span>
+                <span class="check-btn">
+                <button class="minus" v-on:click="minus($event,item)"></button>
+                    <i>{{item.count}}</i>
+                <button class="add" v-on:click="add($event,item)"></button>
+                </span>
+                
+            </li>
+        </ul>
+        <div v-if="hasSubmitItems.length>0">已提交菜品</div>
+        <ul>
+            <li v-for="item in hasSubmitItems">
+                <span>{{item.name}}</span>
+                <span>{{item.price*item.count}}</span>
+                <span >
+                    <i>{{item.count}}</i>
+                </span>
+            </li>
+        </ul>
+    </div>
+
     <script>
 
         var menuData = {
-            lists: [
-                {
-                    tagName: '热销',
-                    tagID: "1",
-                    items: [
-                        {
-                            name: "黄焖鸡",
-                            summary: "著名小吃",
-                            imgUrl: "/Content/img/pic.png",
-                            price: 18.5,
-                            count:0
-                        },
-                        {
-                            name: "沙县小吃",
-                            summary: "著名小吃",
-                            imgUrl: "/Content/img/pic.png",
-                            price: 12.22,
-                            count: 0
-                        }
-                    ]
-                },
-                {
-                    tagName: '优惠',
-                    tagID: "2",
-                    items: [
-                        {
-                            name: "黄焖鸡",
-                            summary: "著名小吃",
-                            imgUrl: "/Content/img/pic.png",
-                            price: 19,
-                            count: 0
-                        },
-                        {
-                            name: "沙县小吃",
-                            summary: "著名小吃",
-                            imgUrl: "/Content/img/pic.png",
-                            price: 12,
-                            count: 0
-                        },
-                        {
-                            name: "黄焖鸡",
-                            summary: "著名小吃",
-                            imgUrl: "/Content/img/pic.png",
-                            price: 19,
-                            count: 0
-                        },
-                        {
-                            name: "沙县小吃",
-                            summary: "著名小吃",
-                            imgUrl: "/Content/img/pic.png",
-                            price: 12,
-                            count: 0
-                        }
-                    ]
-                },
-                {
-                    tagName: '优惠1',
-                    tagID: "3",
-                    items: [
-                        {
-                            name: "黄焖鸡",
-                            summary: "著名小吃",
-                            imgUrl: "/Content/img/pic.png",
-                            price: 19,
-                            count: 0
-                        },
-                        {
-                            name: "沙县小吃",
-                            summary: "著名小吃",
-                            imgUrl: "/Content/img/pic.png",
-                            price: 12,
-                            count: 0
-                        },
-                        {
-                            name: "黄焖鸡",
-                            summary: "著名小吃",
-                            imgUrl: "/Content/img/pic.png",
-                            price: 19,
-                            count: 0
-                        },
-                        {
-                            name: "沙县小吃",
-                            summary: "著名小吃",
-                            imgUrl: "/Content/img/pic.png",
-                            price: 12,
-                            count: 0
-                        },
-                        {
-                            name: "黄焖鸡",
-                            summary: "著名小吃",
-                            imgUrl: "/Content/img/pic.png",
-                            price: 19,
-                            count: 0
-                        },
-                        {
-                            name: "沙县小吃",
-                            summary: "著名小吃",
-                            imgUrl: "/Content/img/pic.png",
-                            price: 12,
-                            count: 0
-                        }
-                    ]
-                },
-                {
-                    tagName: '精选组合',
-                    tagID: "4",
-                    items: [
-                        {
-                            name: "黄焖鸡",
-                            summary: "著名小吃",
-                            imgUrl: "/Content/img/pic.png",
-                            price: 19,
-                            count: 0
-                        },
-                        {
-                            name: "沙县小吃",
-                            summary: "著名小吃",
-                            imgUrl: "/Content/img/pic.png",
-                            price: 12,
-                            count: 0
-                        }
-                    ]
-                },
-                {
-                    tagName: '测试一下',
-                    tagID: "5",
-                    items: [
-                        {
-                            name: "黄焖鸡",
-                            summary: "著名小吃",
-                            imgUrl: "/Content/img/pic.png",
-                            price: 19,
-                            count: 0
-                        },
-                        {
-                            name: "沙县小吃",
-                            summary: "著名小吃",
-                            imgUrl: "/Content/img/pic.png",
-                            price: 12,
-                            count: 0
-                        }
-                    ]
-                },
-                {
-                    tagName: '再测一下',
-                    tagID: "6",
-                    items: [
-                        {
-                            name: "黄焖鸡",
-                            summary: "著名小吃",
-                            imgUrl: "/Content/img/pic.png",
-                            price: 19,
-                            count: 0
-                        }
-                    ]
-                },
-                {
-                    tagName: '不测了',
-                    tagID: "7",
-                    items: []
-                }
-            ]
+            lists: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model))
         };
 
         var shopData = {
             totalCount: 0,
             totalPrice: 0.0,
-            hasSubmitItems: [{
-
-            }]
+            hasSubmitItems: [],
+            currentChoiceItems:[]
         };
+
+        /*{
+            id,
+            name,
+            summary,
+            imgUrl,
+            price,
+            count,
+        }*/
         $(function () {
             vueCreate();
             //滚动事件监听
@@ -292,7 +168,7 @@
             });
             //设置第一项选中
             $('.main-menu li:first').addClass("li-active");
-
+            AsynacLoadData();
         })
 
         function liActive(e) {
@@ -322,6 +198,14 @@
                 el: '.footer',
                 data: shopData
             });
+            new Vue({
+                el: '.shoping_car_content',
+                data: shopData,
+                methods:{
+                    add: addItem,
+                    minus:minusItem
+                }
+            });
         }
 
         function addItem(event,item) {
@@ -331,6 +215,20 @@
 
             shopData.totalCount++;
             shopData.totalPrice += item.price;
+            
+            var isExist=false;
+
+            for(var i in shopData.currentChoiceItems)
+            {
+                if(shopData.currentChoiceItems[i].id==item.id)
+                {
+                    isExist=true;
+                }
+            }
+            if(!isExist)
+            {
+                shopData.currentChoiceItems.push(item);
+            }
 
             totalChangeAction();//<span style='font-family: Arial, Helvetica, sans-serif;'></span>   改变按钮样式
         }
@@ -340,6 +238,19 @@
             item.count--;
             shopData.totalCount--;
             shopData.totalPrice -= item.price;
+
+            for(var i in shopData.currentChoiceItems)
+            {
+                if(shopData.currentChoiceItems[i].id==item.id)
+                {
+                    if(shopData.currentChoiceItems[i].count<=0)
+                    {
+                        shopData.currentChoiceItems.splice(i,1);
+                        //Array.slice()
+                    }
+                }
+            }
+
             if (item.count <= 0) {
                 $(event.target).next().css("visibility", "hidden");
                 $(event.target).css("visibility", "hidden");
@@ -367,6 +278,31 @@
                 $(".right").attr("disabled", "disabled");
             }
         };
-    </script>
+    
+        function footerTigger(){
+            $('#shoping_car_content').toggleClass("bottomhidden");
+        }
+   
+        function GotoConfrim()
+        {
+            window.location.href="@Url.Content("~/Mobiel/Home/ConfrimSubmit")?data="+JSON.stringify(shopData.currentChoiceItems);
+        }
+
+        function AsynacLoadData()
+        {
+            $.get('@(Url.Action("HasCheckItem"))',function(res){
+
+                var data=res;
+
+                if(shopData.hasSubmitItems.length!=data.length)
+                {
+                    shopData.hasSubmitItems=data;
+                }
+                setTimeout(AsynacLoadData,500);
+
+            });
+        }
+
+     </script>
 </body>
 </html>
