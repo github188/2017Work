@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "insert";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增菜单</title>
+</head>
+<body>
+    <form id="team" class="form-horizontal" role="form">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">上级菜单:</label>
+            <div class="col-sm-10">
+                <select id="sjcd" name="sjcd" class="form-control">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">菜单名称:</label>
+            <div class="col-sm-10"><input id="cdmc" name="cdmc" class="form-control" type="text" placeholder="请输入菜单名称"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">菜单url:</label>
+            <div class="col-sm-10"><input id="cdurl" name="cdurl" class="form-control" type="text" placeholder="请输入菜单url"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">描述:</label>
+            <div class="col-sm-10"><input id="cdms" name="cdms" class="form-control" type="text" placeholder="请输入描述"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">序号:</label>
+            <div class="col-sm-10">
+                <div class="input-group spinner">
+                    <input id="cdxh" name="cdxh" type="number" class="form-control" value="1" style="text-align:left">
+                    <div class="input-group-btn-vertical">
+                        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-up"></i></button>
+                        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-down"></i></button>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </form>
+    <script>
+        $(function () {
+            $('.spinner .btn:first-of-type').on('click', function () {
+                $('.spinner input').val(parseInt($('.spinner input').val(), 10) + 1);
+            });
+            $('.spinner .btn:last-of-type').on('click', function () {
+                $('.spinner input').val(parseInt($('.spinner input').val(), 10) - 1);
+            });
+
+            var obj = @Html.Raw(Model.ToString());
+            for (var i = 0; i < obj.length; i++) {         
+                $("#sjcd").append("<option value=" + obj[i].value + ">" + obj[i].text + "</option>");
+            }
+        });
+        //$( function () {
+        //    BindSelect("sjcd", "Menu/getSelect");
+        //});
+        //function BindSelect(ctrlName, url) {
+        //    $.ajax({
+        //        type: "post",
+        //        url: url,
+        //        async: true,
+        //        success: function (data) {
+        //            var str = "";
+        //            var obj = JSON.parse(data);//转换成json对象
+        //            $("#" + ctrlName).empty();
+        //            for (var i = 0; i < obj.length; i++) {
+        //                str += '<option>' + obj[i].text + '</option>'
+        //                $("#"+ctrlName).append("<option value=" + obj[i].value + ">" + obj[i].text + "</option>");
+        //            }
+        //        },
+        //        error: function () {
+        //            $("#" + ctrlName).empty();
+        //            $("#" + ctrlName).append("<option value=0>主菜单</option>");
+        //        }
+        //    });
+        //}
+    </script>
+</body>
+</html>
