@@ -1,0 +1,96 @@
+﻿@model List<SmartRestaurant.Areas.Mobiel.Controllers.MenuItem>
+@{
+    ViewBag.Title = "ConfrimSubmit";
+    Layout = null;
+    double total = 0;
+    int count = 0;
+    if (Model == null)
+    {
+        Response.Redirect(Url.Content("~/Mobiel/Home/Index"));
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>订单确认</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/mobiel/css/pagedefault.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/mobiel/pagedefault.js"></script>
+    <script src="~/Scripts/vue/vue.min.js" type="text/javascript"></script>
+
+</head>
+<body>
+    <div class="threeLayout toputil"><span style="border-right:0.5rem;" onclick="gotoHome()"><</span><span>确认菜品</span><span></span></div>
+    <ul class="itemlist">
+        @{ 
+            foreach(var item in Model)
+            {
+                count++;
+                total+= item.price * item.price;
+                <li>
+                    <span>@item.name</span><sapn>@item.count</sapn><span>@(item.price*item.price)</span>
+                </li>
+            }
+
+        }
+
+    </ul>
+    <div class="footer">
+        <span></span>
+        <div class="left">
+            已选：<span id="totalcountshow">@count</span>份
+            <br />
+            总计：￥<span id="totalpriceshow">@total</span>元
+        </div>
+        <button id="submit" class="right btn btn-primary" onclick="SureSubmit()">
+            确认
+        </button>
+    </div>
+   <script>
+
+       $(function () {
+
+
+
+       });
+
+       function SureSubmit()
+       {
+           var data= @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+
+           $.post('@Url.Action("Order")',{data: JSON.stringify(data)},function(msg){
+               var res=msg;
+               if(res.IsSuccess)
+               {
+                   warn("提交成功");
+                   setTimeout(gotoHome,1000);
+               }
+               else
+               {
+                   warn("提交失败，请重试");
+
+               }
+            
+           })
+
+       }
+
+
+       function gotoHome()
+       {
+           window.location.href = "@(Url.Content("~/Mobiel/Home/Index"))";
+       }
+
+   </script>
+
+</body>
+
+</html>
+
+
