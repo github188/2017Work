@@ -15,7 +15,8 @@ namespace SmartRestaurant.Model
     public partial class sys_menu
     {
         public int id { get; set; }
-        public string username { get; set; }
+        public int pid { get; set; }
+        public string name { get; set; }
         public string url { get; set; }
         public int rank { get; set; }
         public string remark { get; set; }

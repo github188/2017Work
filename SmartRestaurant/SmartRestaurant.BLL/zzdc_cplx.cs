@@ -17,6 +17,6 @@ namespace SmartRestaurant.Model
         public int id { get; set; }
         public string name { get; set; }
         public int rank { get; set; }
-        public string remank { get; set; }
+        public string remark { get; set; }
     }
 }

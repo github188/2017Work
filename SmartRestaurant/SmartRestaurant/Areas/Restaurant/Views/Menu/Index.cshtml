@@ -1,0 +1,497 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BootStrap Table使用</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!--table begin-->
+    <script src="~/Content/restaurant/table/bootstrap-table.js"></script>
+    <link href="~/Content/restaurant/table/bootstrap-table.css" rel="stylesheet" />
+    <script src="~/Content/restaurant/table/bootstrap-table-zh-CN.js"></script>
+    <!--table end-->
+    <!--dialog begin-->
+    <link href="~/Content/restaurant/dialog/bootstrap-dialog.css" rel="stylesheet" type="text/css" />
+    <script src="~/Content/restaurant/dialog/bootstrap-dialog.js"></script>
+    <!--dialog end-->
+    <!--数字步进器 begin-->
+    <link href="~/Content/restaurant/other/szbjq/szbjq.css" rel="stylesheet" type="text/css" />
+    <script src="~/Content/restaurant/other/szbjq/szbjq.js"></script>
+    <!--数字步进器 end-->
+</head>
+<body>
+    <div id="panel-body" class="panel-body" style="padding-bottom:0px;height:662px">
+        @*<div class="panel panel-default">
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+                <form id="formSearch" class="form-horizontal">
+                    <div class="form-group" style="margin-top:15px">
+                        <label class="control-label col-sm-1" for="txt_search_departmentname">菜单名称</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_search_departmentname">
+                        </div>
+                        <label class="control-label col-sm-1" for="txt_search_statu">上级菜单</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_search_statu">
+                        </div>
+                        <div class="col-sm-4" style="text-align:left;">
+                            <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">查询</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>*@
+
+        <div id="toolbar" class="btn-group">
+            <button id="btn_add" type="button" class="btn btn-default" href="Menu/Insert" title="新增菜单">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+            </button>
+            @*<button id="btn_edit" type="button" class="btn btn-default" href="Menu/Update" title="菜单修改">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+            </button>
+            <button id="btn_delete" type="button" class="btn btn-default btn1">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+            </button>*@
+        </div>
+        <table id="tb_departments"></table>
+    </div>
+    <script>
+        $(window).resize(function () {
+            //alert($("#tb_departments").height());
+            //$("#panel-body").css("height", $(window).height());
+            //$('#tb_departments').data('height', 500);
+            //alert($(window).height());
+        });
+        window.operateEvents = {//注册事件
+            'click .btn_edit': function (e, value, row, index) {
+                ShowDialog('菜单修改', 'Menu/Update?id=' + row.id, function (dialog) {
+                    var data = $("#team").serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "Menu/Updating",
+                        data: data,
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.result == "success") {
+                                BootstrapDialog.show({
+                                    type: BootstrapDialog.TYPE_SUCCESS,
+                                    title: '成功 ',
+                                    message: '修改成功',
+                                    size: BootstrapDialog.SIZE_SMALL,
+                                    buttons: [{
+                                        label: '确定',
+                                        action: function (dialogItself) {
+                                            dialogItself.close();
+                                            dialog.close();
+                                            $('#tb_departments').bootstrapTable('refresh');
+                                        }
+                                    }]
+
+                                });
+                            }
+                            else {
+                                BootstrapDialog.show({
+                                    type: BootstrapDialog.TYPE_DANGER,
+                                    title: '错误 ',
+                                    message: '修改失败,请检查!',
+                                    size: BootstrapDialog.SIZE_SMALL,//size为小，默认的对话框比较宽
+                                    buttons: [{// 设置关闭按钮
+                                        label: '关闭',
+                                        action: function (dialogItself) {
+                                            dialogItself.close();
+                                        }
+                                    }]
+                                });
+                            }
+                        },
+                        error: function () {
+                            //alert('未知异常导致请求失败,请重试.')
+                            BootstrapDialog.show({
+                                type: BootstrapDialog.TYPE_DANGER,
+                                title: '错误 ',
+                                message: '未知异常导致请求失败,请重试!',
+                                size: BootstrapDialog.SIZE_SMALL,//size为小，默认的对话框比较宽
+                                buttons: [{// 设置关闭按钮
+                                    label: '关闭',
+                                    action: function (dialogItself) {
+                                        dialogItself.close();
+                                    }
+                                }]
+                            });
+                        }
+                    });
+                });       
+             },
+            'click .btn_delete': function (e, value, row, index) {
+                BootstrapDialog.show({
+                    type: BootstrapDialog.TYPE_DANGER,
+                    title: '提示',
+                    message: '确定删除该菜单吗?',
+                    size: BootstrapDialog.SIZE_SMALL,//size为小，默认的对话框比较宽
+                    buttons: [{// 设置关闭按钮
+                                 label: '取消',
+                                 action: function (dialogItself) {
+                                     dialogItself.close();
+                                 }
+                              }, {
+                                  label: '删除',
+                                  cssClass:'btn-danger',
+                                  action: function (dialogItself) {
+                                      var data = { id: row.id };
+                                      $.ajax({
+                                          type: "POST",
+                                          url: 'Menu/Delete',
+                                          data: data,
+                                          dataType: "json",
+                                          success: function (result) {
+                                              if (result.result == "success") {
+                                                  BootstrapDialog.show({
+                                                      type: BootstrapDialog.TYPE_SUCCESS,
+                                                      title: '成功 ',
+                                                      message: '删除成功！',
+                                                      size: BootstrapDialog.SIZE_SMALL,
+                                                      buttons: [{
+                                                          label: '确定',
+                                                          action: function (dialogItself) {
+                                                              dialogItself.close();
+                                                              $('#tb_departments').bootstrapTable('refresh');
+                                                          }
+                                                      }]
+                                                  });
+                                              }
+                                              else {
+                                                  var str = '';
+                                                  if (result.result == "fail")
+                                                      str = '删除失败！'
+                                                  else
+                                                      str = '其节点有子菜单，请先删除子菜单！'
+                                                  BootstrapDialog.show({
+                                                      type: BootstrapDialog.TYPE_DANGER,
+                                                      title: '错误 ',
+                                                      message: str,
+                                                      size: BootstrapDialog.SIZE_SMALL,//size为小，默认的对话框比较宽
+                                                      buttons: [{// 设置关闭按钮
+                                                          label: '关闭',
+                                                          action: function (dialogItself) {
+                                                              dialogItself.close();
+                                                          }
+                                                      }]
+                                                  });
+                                              }
+                                          },
+                                          error: function () {
+                                              //alert('未知异常导致请求失败,请重试.')
+                                              BootstrapDialog.show({
+                                                  type: BootstrapDialog.TYPE_DANGER,
+                                                  title: '错误 ',
+                                                  message: '未知异常导致请求失败,请重试！',
+                                                  size: BootstrapDialog.SIZE_SMALL,//size为小，默认的对话框比较宽
+                                                  buttons: [{// 设置关闭按钮
+                                                      label: '关闭',
+                                                      action: function (dialogItself) {
+                                                          dialogItself.close();
+                                                      }
+                                                  }]
+                                              });
+                                          }
+                                      });
+                                      dialogItself.close();
+                                  }
+                              }]
+                });
+            }
+        };
+        $(function () {
+            //1.初始化Table
+            var oTable = new TableInit();
+            oTable.Init();
+
+            //2.初始化Button的点击事件
+            var oButtonInit = new ButtonInit();
+            oButtonInit.Init();
+
+        });
+
+
+        var TableInit = function () {
+            var oTableInit = new Object();
+            //初始化Table
+            oTableInit.Init = function () {
+                $('#tb_departments').bootstrapTable({
+                    url: 'Menu/getList',         //请求后台的URL（*）
+                    method: 'get',                      //请求方式（*）
+                    toolbar: '#toolbar',                //工具按钮用哪个容器
+                    striped: false,                      //是否显示行间隔色
+                    cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                    pagination: true,                   //是否显示分页（*）
+                    sortable: false,                     //是否启用排序
+                    sortOrder: "asc",                   //排序方式
+                    queryParams: oTableInit.queryParams,//传递参数（*）
+                    sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                    pageNumber: 1,                       //初始化加载第一页，默认第一页
+                    pageSize: 10,                       //每页的记录行数（*）
+                    pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                    search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                    strictSearch: true,
+                    showColumns: true,                  //是否显示所有的列
+                    showRefresh: true,                  //是否显示刷新按钮
+                    minimumCountColumns: 2,             //最少允许的列数
+                    clickToSelect: true,                //是否启用点击选中行
+                    height: 642,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                    uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+                    showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
+                    cardView: false,                    //是否显示详细视图
+                    detailView: true,                   //是否显示父子表
+                    //singleSelect: true,                 // 单选checkbox 
+                    columns: [/*{
+                        checkbox: true
+                    },*/{
+                        field: 'name',
+                        title: '菜单名称',
+                        align: 'center',//水平
+                        valign: 'middle',//垂直
+                        sortable: false,//排序
+                    }, {
+                        field: 'url',
+                        title: '菜单url',
+                        align: 'center',//水平
+                        valign: 'middle',//垂直
+                        sortable: false,//排序
+
+                    }, {
+                        field: 'remark',
+                        title: '描述',
+                        align: 'center',//水平
+                        valign: 'middle',//垂直
+                        sortable: false,//排序
+                    }, {
+                        field: 'pname',
+                        title: '上级菜单',
+                        align: 'center',//水平
+                        valign: 'middle',//垂直
+                        sortable: false,//排序
+                    },{
+                        field: 'operate',
+                        title: '操作',
+                        align: 'center',
+                        events: operateEvents,
+                        formatter: operateFormatter
+                     } ],
+                    //注册加载子表的事件。注意下这里的三个参数！
+                    onExpandRow: function (index, row, $detail) {
+                        oInit.InitSubTable(index, row, $detail);
+                    }
+                });
+            };
+
+            //得到查询的参数
+            oTableInit.queryParams = function (params) {
+                var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                    limit: params.limit,   //页面大小
+                    offset: params.offset,  //页码
+                    departmentname: $("#txt_search_departmentname").val(),
+                    statu: $("#txt_search_statu").val()
+                };
+                return temp;
+            };
+            return oTableInit;
+        };
+
+
+        var ButtonInit = function () {
+            var oInit = new Object();
+            var postdata = {};
+
+            oInit.Init = function () {
+                //初始化页面上面的按钮事件
+            };
+
+            return oInit;
+        };
+
+        //初始化子表格(无线循环)
+        var oInit = new Object();
+        oInit.InitSubTable = function (index, row, $detail) {
+            var parentid = row.id;
+            var cur_table = $detail.html('<table></table>').find('table');
+            $(cur_table).bootstrapTable({
+                url: 'Menu/getSonList',
+                method: 'get',
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*） 数据子表如果在服务器拿的时候，必须把sidePagination 改为 server，不然子表没数据
+                queryParams: { intParentID: parentid },
+                ajaxOptions: { intParentID: parentid },
+                clickToSelect: true,
+                detailView: true,//父子表
+
+                uniqueId: "id",
+                pageSize: 10,
+                pageList: [10, 25],
+                /*singleSelect: true,*/
+                columns: [/*{
+                    checkbox: true
+                },*/ {
+                    field: 'name',
+                    title: '菜单名称',
+                    align: 'center',//水平
+                    valign: 'middle',//垂直
+                    sortable: false,//排序
+                }, {
+                    field: 'url',
+                    title: '菜单URL',
+                    align: 'center',//水平
+                    valign: 'middle',//垂直
+                    sortable: false,//排序
+                }, {
+                    field: 'remark',
+                    title: '描述',
+                    align: 'center',//水平
+                    valign: 'middle',//垂直
+                    sortable: false,//排序
+                }, {
+                    field: 'pname',
+                    title: '上级菜单',
+                    align: 'center',//水平
+                    valign: 'middle',//垂直
+                    sortable: false,//排序
+                }, {
+                    field: 'operate',
+                    title: '操作',
+                    align: 'center',
+                    events: operateEvents,
+                    formatter: operateFormatter
+                }],
+                //无线循环取子表，直到子表里面没有记录
+                onExpandRow: function (index, row, $Subdetail) {
+                    oInit.InitSubTable(index, row, $Subdetail);
+                }
+            });
+        };
+
+        function operateFormatter(value, row, index) {
+            return [
+                '<button type="button" class="btn_edit btn btn-info  btn-sm" style="margin-right:15px;" >编辑</button>',
+                '<button type="button" class="btn_delete btn btn btn-danger  btn-sm" style="margin-right:15px;" >删除</button>'
+            ].join('');
+        }
+
+        function refresh() {
+            var opt = {
+                url: "Menu/getList",
+                silent: true,
+                query: {
+                    limit: 20, offset: 1, departmentname: '', statu: ''
+                }
+            };
+            $('#tb_departments').bootstrapTable('refresh', opt);
+        }
+
+        $("#btn_add").click(function (event) {
+            var $this = $(this);
+            var title = $this.attr("title");
+            var url = $this.attr("href");
+            ShowDialog(title, url, function (dialog) {
+                   //var cdxh = $('#cdxh').val();
+                   var data = $("#team").serialize();
+
+                   $.ajax({
+                       type: "POST",
+                       url: 'Menu/Inserting',
+                       data: data,
+                   dataType: "json",
+                   success: function (result) {
+                       if (result.result == "success") {
+                           BootstrapDialog.show({
+                               type: BootstrapDialog.TYPE_SUCCESS,
+                               title: '成功 ',
+                               message: '添加成功！',
+                               size: BootstrapDialog.SIZE_SMALL,
+                               buttons: [{
+                                   label: '确定',
+                                   action: function (dialogItself) {
+                                       dialogItself.close();                                                                  
+                                       dialog.close();
+                                       $('#tb_departments').bootstrapTable('refresh');
+                                   }
+                               }]
+                               
+                           });
+                           //setTimeout(function () {
+                           //    //self.location.reload(true);
+                           //    toastr.clear();
+                           //}, 1000);
+                           //$("#squadMemberTmpl").tmpl(result.ReturnValue).insertBefore($this);
+
+                       }
+                       else {
+                           BootstrapDialog.show({
+                               type: BootstrapDialog.TYPE_DANGER,
+                               title: '错误 ',
+                               message: '添加失败,请检查!',
+                               size: BootstrapDialog.SIZE_SMALL,//size为小，默认的对话框比较宽
+                               buttons: [{// 设置关闭按钮
+                                   label: '关闭',
+                                   action: function (dialogItself) {
+                                       dialogItself.close();
+                                   }
+                               }]
+                           });
+                       }
+                   },
+                   error: function () {
+                       //alert('未知异常导致请求失败,请重试.')
+                       BootstrapDialog.show({
+                           type: BootstrapDialog.TYPE_DANGER,
+                           title: '错误 ',
+                           message: '未知异常导致请求失败,请重试!',
+                           size: BootstrapDialog.SIZE_SMALL,//size为小，默认的对话框比较宽
+                           buttons: [{// 设置关闭按钮
+                               label: '关闭',
+                               action: function (dialogItself) {
+                                   dialogItself.close();
+                               }
+                           }]
+                       });
+                   }
+               });
+                //dailog.close();
+            });
+        });
+        //    var row = $.map($("#tb_departments").bootstrapTable('getSelections'), function (row) {
+        //        return row;
+        //    });
+
+        function ShowDialog(title, url, success) {
+            BootstrapDialog.show({
+                title: title,
+                type: BootstrapDialog.TYPE_DEFAULT,
+                //size: BootstrapDialog.SIZE_WIDE,
+                cssClass: "fade",
+                closeable: true,
+                message: function (dialog) {
+                    var $message = $('<div></div>');
+                    var pageToLoad = dialog.getData('pageToLoad');
+                    $message.load(pageToLoad);
+                    return $message;
+                },
+                data: {
+                    'pageToLoad': url,
+                },
+                buttons: [{
+                    label: '取消',
+                    action: function (dialog) {
+                        dialog.close();
+                    }
+                }, {
+                    label: '确定',
+                    cssClass: 'btn btn-primary',
+                    action: function (dialog) {
+                        success(dialog);
+                    }
+                }]
+            });
+        }
+    </script>
+</body>
+</html>
