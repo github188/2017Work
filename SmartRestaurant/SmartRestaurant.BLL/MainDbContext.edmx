@@ -21,8 +21,9 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="username" Type="varchar" MaxLength="32" Nullable="false" />
-          <Property Name="url" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="pid" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="url" Type="varchar" MaxLength="64" />
           <Property Name="rank" Type="int" Nullable="false" />
           <Property Name="remark" Type="varchar" MaxLength="256" />
         </EntityType>
@@ -31,9 +32,9 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="username" Type="int" Nullable="false" />
-          <Property Name="password" Type="int" Nullable="false" />
-          <Property Name="name" Type="int" Nullable="false" />
+          <Property Name="gllx" Type="int" Nullable="false" />
+          <Property Name="pid" Type="int" Nullable="false" />
+          <Property Name="fid" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sys_role">
           <Key>
@@ -62,7 +63,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="rank" Type="int" Nullable="false" />
-          <Property Name="remank" Type="varchar" MaxLength="256" />
+          <Property Name="remark" Type="varchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="zzdc_cpwlxh">
           <Key>
@@ -259,11 +260,8 @@
         <EntityContainer Name="MainDb" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="zzdc_czlx" EntityType="Self.zzdc_czlx" />
           <EntitySet Name="sys_dict" EntityType="SmartRestaurantModel.sys_dict" />
-          <EntitySet Name="sys_menu" EntityType="SmartRestaurantModel.sys_menu" />
-          <EntitySet Name="sys_relation" EntityType="SmartRestaurantModel.sys_relation" />
           <EntitySet Name="sys_role" EntityType="SmartRestaurantModel.sys_role" />
           <EntitySet Name="sys_user" EntityType="SmartRestaurantModel.sys_user" />
-          <EntitySet Name="zzdc_cplx" EntityType="SmartRestaurantModel.zzdc_cplx" />
           <EntitySet Name="zzdc_cpwlxh" EntityType="SmartRestaurantModel.zzdc_cpwlxh" />
           <EntitySet Name="zzdc_cpxx" EntityType="SmartRestaurantModel.zzdc_cpxx" />
           <EntitySet Name="zzdc_czxx" EntityType="SmartRestaurantModel.zzdc_czxx" />
@@ -276,6 +274,9 @@
           <EntitySet Name="zzdc_wlxx" EntityType="SmartRestaurantModel.zzdc_wlxx" />
           <EntitySet Name="zzdc_xsxq" EntityType="SmartRestaurantModel.zzdc_xsxq" />
           <EntitySet Name="zzdc_xsxx" EntityType="SmartRestaurantModel.zzdc_xsxx" />
+          <EntitySet Name="sys_menu" EntityType="SmartRestaurantModel.sys_menu" />
+          <EntitySet Name="sys_relation" EntityType="SmartRestaurantModel.sys_relation" />
+          <EntitySet Name="zzdc_cplx" EntityType="SmartRestaurantModel.zzdc_cplx" />
         </EntityContainer>
         <EntityType Name="sys_dict">
           <Key>
@@ -287,25 +288,6 @@
           <Property Name="value" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
           <Property Name="rank" Type="Int32" Nullable="false" />
           <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="sys_menu">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="url" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="rank" Type="Int32" Nullable="false" />
-          <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="sys_relation">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="Int32" Nullable="false" />
-          <Property Name="password" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="sys_role">
           <Key>
@@ -326,15 +308,6 @@
           <Property Name="name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="rank" Type="Int32" Nullable="false" />
           <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="zzdc_cplx">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="rank" Type="Int32" Nullable="false" />
-          <Property Name="remank" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="zzdc_cpwlxh">
           <Key>
@@ -483,6 +456,35 @@
           <Property Name="lrsj" Type="DateTime" Precision="3" />
           <Property Name="lrr" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="sys_menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pid" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="url" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="rank" Type="Int32" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sys_relation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="gllx" Type="Int32" Nullable="false" />
+          <Property Name="pid" Type="Int32" Nullable="false" />
+          <Property Name="fid" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="zzdc_cplx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="rank" Type="Int32" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -512,27 +514,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sys_menu">
-            <EntityTypeMapping TypeName="SmartRestaurantModel.sys_menu">
-              <MappingFragment StoreEntitySet="sys_menu">
-                <ScalarProperty Name="remark" ColumnName="remark" />
-                <ScalarProperty Name="rank" ColumnName="rank" />
-                <ScalarProperty Name="url" ColumnName="url" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sys_relation">
-            <EntityTypeMapping TypeName="SmartRestaurantModel.sys_relation">
-              <MappingFragment StoreEntitySet="sys_relation">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sys_role">
             <EntityTypeMapping TypeName="SmartRestaurantModel.sys_role">
               <MappingFragment StoreEntitySet="sys_role">
@@ -551,16 +532,6 @@
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="zzdc_cplx">
-            <EntityTypeMapping TypeName="SmartRestaurantModel.zzdc_cplx">
-              <MappingFragment StoreEntitySet="zzdc_cplx">
-                <ScalarProperty Name="remank" ColumnName="remank" />
-                <ScalarProperty Name="rank" ColumnName="rank" />
-                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -720,6 +691,38 @@
                 <ScalarProperty Name="yxbz" ColumnName="yxbz" />
                 <ScalarProperty Name="yxjssj" ColumnName="yxjssj" />
                 <ScalarProperty Name="yxqssj" ColumnName="yxqssj" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_menu">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.sys_menu">
+              <MappingFragment StoreEntitySet="sys_menu">
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_relation">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.sys_relation">
+              <MappingFragment StoreEntitySet="sys_relation">
+                <ScalarProperty Name="fid" ColumnName="fid" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="gllx" ColumnName="gllx" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zzdc_cplx">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.zzdc_cplx">
+              <MappingFragment StoreEntitySet="zzdc_cplx">
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

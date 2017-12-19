@@ -15,8 +15,8 @@ namespace SmartRestaurant.Model
     public partial class sys_relation
     {
         public int id { get; set; }
-        public int username { get; set; }
-        public int password { get; set; }
-        public int name { get; set; }
+        public int gllx { get; set; }
+        public int pid { get; set; }
+        public int fid { get; set; }
     }
 }

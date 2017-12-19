@@ -27,11 +27,8 @@ namespace SmartRestaurant.Model
     
         public virtual DbSet<zzdc_czlx> zzdc_czlx { get; set; }
         public virtual DbSet<sys_dict> sys_dict { get; set; }
-        public virtual DbSet<sys_menu> sys_menu { get; set; }
-        public virtual DbSet<sys_relation> sys_relation { get; set; }
         public virtual DbSet<sys_role> sys_role { get; set; }
         public virtual DbSet<sys_user> sys_user { get; set; }
-        public virtual DbSet<zzdc_cplx> zzdc_cplx { get; set; }
         public virtual DbSet<zzdc_cpwlxh> zzdc_cpwlxh { get; set; }
         public virtual DbSet<zzdc_cpxx> zzdc_cpxx { get; set; }
         public virtual DbSet<zzdc_czxx> zzdc_czxx { get; set; }
@@ -44,5 +41,8 @@ namespace SmartRestaurant.Model
         public virtual DbSet<zzdc_wlxx> zzdc_wlxx { get; set; }
         public virtual DbSet<zzdc_xsxq> zzdc_xsxq { get; set; }
         public virtual DbSet<zzdc_xsxx> zzdc_xsxx { get; set; }
+        public virtual DbSet<sys_menu> sys_menu { get; set; }
+        public virtual DbSet<sys_relation> sys_relation { get; set; }
+        public virtual DbSet<zzdc_cplx> zzdc_cplx { get; set; }
     }
 }
