@@ -58,7 +58,7 @@ namespace SmartRestaurant.Areas.Restaurant.Controllers
             using (MainDb db = new MainDb())
             {
                 string sql = "update zzdc_czlx set name = '" + czlxmc + "',"
-                                                + " rs = " + czlxrs
+                                                + " rs = " + czlxrs + ","
                                                 + " remark = '" + czlxms + "',"
                                                 + " rank = " + czlxxh
                                                 + " where id = " + czlxid;
