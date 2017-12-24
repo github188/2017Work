@@ -1525,13 +1525,17 @@
     <Content Include="Content\quickui\libs\thirdparty\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\restaurant\dialog\bootstrap-dialog.css" />
     <Content Include="Content\restaurant\dialog\bootstrap-dialog.js" />
+    <Content Include="Content\restaurant\img\miss.jpg" />
     <Content Include="Content\restaurant\layout\layout.css" />
+    <Content Include="Content\restaurant\list\list.css" />
     <Content Include="Content\restaurant\other\dialog\dialog-common.js" />
     <Content Include="Content\restaurant\other\dialog\dialog-delete.js" />
     <Content Include="Content\restaurant\other\dialog\dialog-insert.js" />
     <Content Include="Content\restaurant\other\dialog\dialog-update.js" />
     <Content Include="Content\restaurant\other\szbjq\szbjq.css" />
     <Content Include="Content\restaurant\other\szbjq\szbjq.js" />
+    <Content Include="Content\restaurant\select\bootstrap-select.css" />
+    <Content Include="Content\restaurant\select\bootstrap-select.js" />
     <Content Include="Content\restaurant\sidebar-menu\sidebar-menu.css" />
     <Content Include="Content\restaurant\sidebar-menu\sidebar-menu.js" />
     <Content Include="Content\restaurant\table\bootstrap-table-zh-CN.js" />
@@ -1590,6 +1594,11 @@
     <Content Include="Areas\Restaurant\Views\Cplxbj\Update.cshtml" />
     <Content Include="Areas\Mobiel\Views\Home\ConfrimSubmit.cshtml" />
     <Content Include="Areas\Restaurant\Views\Cpbj\Index.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Cpbj\Insert.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Zdgl\Index.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Zdgl\Insert.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Zdgl\Update.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Cpbj\Update.cshtml" />
     <None Include="Properties\PublishProfiles\release.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\css\page-default.css" />
@@ -1662,6 +1671,7 @@
     <Compile Include="Areas\Restaurant\Controllers\CplxbjController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\HomeController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\MenuController.cs" />
+    <Compile Include="Areas\Restaurant\Controllers\ZdglController.cs" />
     <Compile Include="Areas\Restaurant\RestaurantAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1677,6 +1687,7 @@
     <Folder Include="Areas\Dictionary\Models\" />
     <Folder Include="Areas\Mobiel\Models\" />
     <Folder Include="Areas\Restaurant\Models\" />
+    <Folder Include="Content\restaurant\img\upload\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

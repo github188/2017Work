@@ -25,8 +25,6 @@ namespace SmartRestaurant.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<zzdc_czlx> zzdc_czlx { get; set; }
-        public virtual DbSet<sys_dict> sys_dict { get; set; }
         public virtual DbSet<sys_role> sys_role { get; set; }
         public virtual DbSet<sys_user> sys_user { get; set; }
         public virtual DbSet<zzdc_cpwlxh> zzdc_cpwlxh { get; set; }
@@ -44,5 +42,7 @@ namespace SmartRestaurant.Model
         public virtual DbSet<sys_menu> sys_menu { get; set; }
         public virtual DbSet<sys_relation> sys_relation { get; set; }
         public virtual DbSet<zzdc_cplx> zzdc_cplx { get; set; }
+        public virtual DbSet<zzdc_czlx> zzdc_czlx { get; set; }
+        public virtual DbSet<sys_dict> sys_dict { get; set; }
     }
 }

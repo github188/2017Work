@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编辑字典</title>
+</head>
+<body>
+    <form id="team" class="form-horizontal" role="form">
+        <input id="zdid" name="zdid" class="form-control" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">上级字典:</label>
+            <div class="col-sm-10">
+                <select id="sjzd" name="sjzd" class="form-control"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">字典名称:</label>
+            <div class="col-sm-10"><input id="zdmc" name="zdmc" class="form-control" type="text" placeholder="请输入字典名称"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">字典的值:</label>
+            <div class="col-sm-10"><input id="zddz" name="zddz" class="form-control" type="text" placeholder="请输入字典的值"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">描述:</label>
+            <div class="col-sm-10"><input id="zdms" name="zdms" class="form-control" type="text" placeholder="请输入描述"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">序号:</label>
+            <div class="col-sm-10">
+                <div class="input-group spinner">
+                    <input id="zdxh" name="zdxh" type="number" class="form-control" value="1" style="text-align:left">
+                    <div class="input-group-btn-vertical">
+                        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-up"></i></button>
+                        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-down"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+        $(function () {
+            $('.spinner .btn:first-of-type').on('click', function () {
+                $('.spinner input').val(parseInt($('.spinner input').val(), 10) + 1);
+            });
+            $('.spinner .btn:last-of-type').on('click', function () {
+                $('.spinner input').val(parseInt($('.spinner input').val(), 10) - 1);
+            });
+            var obj = @Html.Raw(Json.Encode(Model));
+            BindSelect("sjzd", "Zdgl/getSelect",obj.Data.dict.pid);
+            $("#zdid").val(obj.Data.dict.id);
+            $("#zdmc").val(obj.Data.dict.name);
+            $("#zddz").val(obj.Data.dict.value);
+            $("#zdms").val(obj.Data.dict.remark);
+            $("#zdxh").val(obj.Data.dict.rank);
+        });
+        function BindSelect(ctrlName, url, pid) {
+            $.ajax({
+                type: "post",
+                url: url,
+                async: true,
+                success: function (data) {
+                    var str = "";
+                    var obj = JSON.parse(data);//转换成json对象
+                    $("#" + ctrlName).empty();
+                    for (var i = 0; i < obj.length; i++) {
+                        if(pid ==obj[i].value)
+                            $("#"+ctrlName).append("<option value=" + obj[i].value + " selected='selected'>" + obj[i].text + "</option>");
+                        else
+                            $("#"+ctrlName).append("<option value=" + obj[i].value + ">" + obj[i].text + "</option>");
+                    }
+                },
+                error: function () {
+                    $("#" + ctrlName).empty();
+                    $("#" + ctrlName).append("<option value=0>字典</option>");
+                }
+            });
+        }
+    </script>
+</body>
+</html>
