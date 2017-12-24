@@ -97,7 +97,7 @@
           <Property Name="name" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="rs" Type="int" Nullable="false" />
           <Property Name="rank" Type="int" Nullable="false" />
-          <Property Name="remank" Type="varchar" MaxLength="256" />
+          <Property Name="remark" Type="varchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="zzdc_czxx">
           <Key>
@@ -247,18 +247,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SmartRestaurantModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="zzdc_czlx">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="rs" Type="Int32" Nullable="false" />
-          <Property Name="rank" Type="Int32" Nullable="false" />
-          <Property Name="remank" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityContainer Name="MainDb" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="zzdc_czlx" EntityType="Self.zzdc_czlx" />
           <EntitySet Name="sys_dict" EntityType="SmartRestaurantModel.sys_dict" />
           <EntitySet Name="sys_role" EntityType="SmartRestaurantModel.sys_role" />
           <EntitySet Name="sys_user" EntityType="SmartRestaurantModel.sys_user" />
@@ -277,6 +266,7 @@
           <EntitySet Name="sys_menu" EntityType="SmartRestaurantModel.sys_menu" />
           <EntitySet Name="sys_relation" EntityType="SmartRestaurantModel.sys_relation" />
           <EntitySet Name="zzdc_cplx" EntityType="SmartRestaurantModel.zzdc_cplx" />
+          <EntitySet Name="zzdc_czlx" EntityType="SmartRestaurantModel.zzdc_czlx" />
         </EntityContainer>
         <EntityType Name="sys_dict">
           <Key>
@@ -485,23 +475,22 @@
           <Property Name="rank" Type="Int32" Nullable="false" />
           <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="zzdc_czlx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="rs" Type="Int32" Nullable="false" />
+          <Property Name="rank" Type="Int32" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SmartRestaurantModelStoreContainer" CdmEntityContainer="MainDb">
-          <EntitySetMapping Name="zzdc_czlx">
-            <EntityTypeMapping TypeName="SmartRestaurantModel.zzdc_czlx">
-              <MappingFragment StoreEntitySet="zzdc_czlx">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="rs" ColumnName="rs" />
-                <ScalarProperty Name="rank" ColumnName="rank" />
-                <ScalarProperty Name="remank" ColumnName="remank" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sys_dict">
             <EntityTypeMapping TypeName="SmartRestaurantModel.sys_dict">
               <MappingFragment StoreEntitySet="sys_dict">
@@ -722,6 +711,17 @@
               <MappingFragment StoreEntitySet="zzdc_cplx">
                 <ScalarProperty Name="remark" ColumnName="remark" />
                 <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zzdc_czlx">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.zzdc_czlx">
+              <MappingFragment StoreEntitySet="zzdc_czlx">
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="rs" ColumnName="rs" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
