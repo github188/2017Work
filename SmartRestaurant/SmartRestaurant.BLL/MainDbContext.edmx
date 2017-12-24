@@ -12,7 +12,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="pid" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="32" Nullable="false" />
-          <Property Name="value" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="value" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="rank" Type="int" Nullable="false" />
           <Property Name="remark" Type="varchar" MaxLength="256" />
         </EntityType>
@@ -248,7 +248,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="SmartRestaurantModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="MainDb" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="sys_dict" EntityType="SmartRestaurantModel.sys_dict" />
           <EntitySet Name="sys_role" EntityType="SmartRestaurantModel.sys_role" />
           <EntitySet Name="sys_user" EntityType="SmartRestaurantModel.sys_user" />
           <EntitySet Name="zzdc_cpwlxh" EntityType="SmartRestaurantModel.zzdc_cpwlxh" />
@@ -267,18 +266,8 @@
           <EntitySet Name="sys_relation" EntityType="SmartRestaurantModel.sys_relation" />
           <EntitySet Name="zzdc_cplx" EntityType="SmartRestaurantModel.zzdc_cplx" />
           <EntitySet Name="zzdc_czlx" EntityType="SmartRestaurantModel.zzdc_czlx" />
+          <EntitySet Name="sys_dict" EntityType="SmartRestaurantModel.sys_dict" />
         </EntityContainer>
-        <EntityType Name="sys_dict">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="pid" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="value" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
-          <Property Name="rank" Type="Int32" Nullable="false" />
-          <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="sys_role">
           <Key>
             <PropertyRef Name="id" />
@@ -485,24 +474,23 @@
           <Property Name="rank" Type="Int32" Nullable="false" />
           <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="sys_dict">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pid" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="rank" Type="Int32" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SmartRestaurantModelStoreContainer" CdmEntityContainer="MainDb">
-          <EntitySetMapping Name="sys_dict">
-            <EntityTypeMapping TypeName="SmartRestaurantModel.sys_dict">
-              <MappingFragment StoreEntitySet="sys_dict">
-                <ScalarProperty Name="remark" ColumnName="remark" />
-                <ScalarProperty Name="rank" ColumnName="rank" />
-                <ScalarProperty Name="value" ColumnName="value" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="pid" ColumnName="pid" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sys_role">
             <EntityTypeMapping TypeName="SmartRestaurantModel.sys_role">
               <MappingFragment StoreEntitySet="sys_role">
@@ -723,6 +711,18 @@
                 <ScalarProperty Name="rank" ColumnName="rank" />
                 <ScalarProperty Name="rs" ColumnName="rs" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_dict">
+            <EntityTypeMapping TypeName="SmartRestaurantModel.sys_dict">
+              <MappingFragment StoreEntitySet="sys_dict">
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

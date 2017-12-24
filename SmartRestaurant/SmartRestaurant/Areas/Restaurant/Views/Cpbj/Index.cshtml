@@ -1,12 +1,9 @@
 ﻿
-@{
-    ViewBag.Title = "Index";
-}
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>BootStrap Table使用</title>
+    <title>菜品编辑</title>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -15,19 +12,165 @@
     <link href="~/Content/restaurant/dialog/bootstrap-dialog.css" rel="stylesheet" type="text/css" />
     <script src="~/Content/restaurant/dialog/bootstrap-dialog.js"></script>
     <!--dialog end-->
-
+    <!--数字步进器 begin-->
+    <link href="~/Content/restaurant/other/szbjq/szbjq.css" rel="stylesheet" type="text/css" />
+    <script src="~/Content/restaurant/other/szbjq/szbjq.js"></script>
+    <!--数字步进器 end-->
+    <!--select begin-->
+    <link href="~/Content/restaurant/select/bootstrap-select.css" rel="stylesheet" type="text/css" />
+    <script src="~/Content/restaurant/select/bootstrap-select.js"></script>
+    <!--select end-->
+    <script src="~/Content/restaurant/other/dialog/dialog-common.js"></script><!-- 消息dialog -->
+    <script src="~/Content/restaurant/other/dialog/dialog-insert.js"></script><!-- 消息dialog -->
+    <script src="~/Content/restaurant/other/dialog/dialog-update.js"></script><!-- 消息dialog -->
+    <script src="~/Content/restaurant/other/dialog/dialog-delete.js"></script><!-- 消息dialog -->
 </head>
 <body>
-    <div class="list-group">
-        <a href="#" class="list-group-item">
-            <h4 class="list-group-item-heading">List group item heading</h4>
-            <p class="list-group-item-text">...</p>
-        </a>
-        <a href="#" class="list-group-item">
-            <h4 class="list-group-item-heading">List group item heading</h4>
-            <p class="list-group-item-text">...</p>
-        </a>
-    </div>
+    <div id="panel-body" class="panel-body" style="padding-bottom:0px;">
+        <div class="panel panel-default">
+            <div id="panel-head" class="panel-heading">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <select class="selectpicker show-tick" data-width="100px">
+                                    <option>所有类型</option>
+                                    <option>小吃</option>
+                                    <option>烤制</option>
+                                </select>
+                            </span>
+                            <input type="text" class="form-control" placeholder="请输入菜品名称">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">搜索</button>
+                                <button id="btn_add" class="btn btn-primary" href="Cpbj/Insert" title="新增菜品">新增</button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+                </div><!-- /.row -->
+            </div>
+                <div id="list-group" class="list-group">                    
+                    
+                </div>
+                <div id="pageSize">
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            <li><a href="#"><span aria-hidden="true">&laquo;</span></a></li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2 </a></li>
+                            <li><a href="#">3 </a></li>
+                            <li><a href="#"><span aria-hidden="true">&raquo;</span></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade bs-example-modal-lg text-center" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg" style="display: inline-block; width: auto;">
+                <div class="modal-content">
+                    <img id="imgInModalID" style="height:500px;width:500px" src="">
+                </div>
+            </div>
+        </div>
+    <script>
+        $("#panel-body").css("height", $(window).height());
+        $("#list-group").css("height", $(window).height() - $("#panel-head").height() - $("#pageSize").height()-58);
+        $(window).resize(function () {
+            $("#panel-body").css("height", $(window).height());
+            $("#list-group").css("height", $(window).height() - $("#panel-head").height() - $("#pageSize").height() - 58);
+        });
+        $("#btn_add").click(function (event) {
+            var $this = $(this);
+            var title = $this.attr("title");
+            var url = $this.attr("href");
+            ShowDialog(title, url, function (dialog) {
+                //var data = $("#team").serialize();
+                var formData = new FormData($(team)[0]);
+                //var file = $("#lefile")[0];
+                //var formDate = new FormData(file[0].name,file[0])
+                //formData.append("username", "test");
+                $.ajax({
+                    type: "POST",
+                    url: 'Cpbj/Inserting',
+                    data: formData,
+                    cache: false,//cache只有GET方式的时候有效 true的话会读缓存 false的话会在url后面加一个时间缀，让它跑到服务器获取结果
+                    dataType: "json",
+                    processData: false,//当设置为true的时候,jquery ajax 提交的时候不会序列化 data，而是直接使用data
+                    contentType: false,// ajax 中 contentType 设置为 false 是为了避免 JQuery 对其操作，从而失去分界符，而使服务器不能正常解析文件。
+                    success: function (result) {
+                        if (result.result == "success") {
+                            insert_success(dialog);
+                        }
+                        else {
+                            insert_fail(dialog);
+                        }
+                    },
+                    error: function () {
+                        error(dialog);
+                    }
+                });
+            });
+        });
+        $(function () {
+            $.ajax({
+                type: "post",
+                url: "Cpbj/getList",
+                async: true,
+                success: function (data) {
+                    for (var i=0; i < data.rows.length;i++){
+                        $("#list-group").append("<div class='list-group-item'><ul class='media-list'><li class='media'>"
+                                            + "<div class='media-left'>"
+                                                + "<a href='javascript:void(0)' onclick='showBigImg(\"" + data.rows[i].img + "\")'>"
+                                                    + "<img class='media-object img-rounded' src='"+data.rows[i].img+"' style='width:134px;height:134px' alt='...'>"
+                                                + "</a>"
+                                            + "</div>"
+                                            + "<div class='media-body'>"
+                                                + "<h4>"
+                                                    + "<label style='color:black'>" + data.rows[i].name + "</label><span style='color:red'> " + data.rows[i].price + "￥/" + data.rows[i].unit+ "</span>"
+                                                + "</h4>"
+                                                + "<p>" + data.rows[i].type + "</p>"
+                                                + "<p>" + data.rows[i].remark + "</p>"
+                                            + "</div>"
+                                            + "<div class='media-right'>"
+                                            + "<button class='btn btn-info' onclick='toEdit("+data.rows[i].id+")'>编辑</button>"
+                                            + "<button class='btn btn-warning'>详情</button>"
+                                            + "<button class='btn btn-danger'>删除</button></div></li></ul></div>");};
+                },
+                error: function () {
+                    $("#list-group").append("<p style='text-align:center'>没有找到匹配的记录</p>")
+                }
+            });
+        });
+        function toEdit(id) {
+            var title = "菜品编辑";
+            var url = 'Cpbj/Update?id=' + id;
+            ShowDialog(title, url, function (dialog) {
+                var data = $("#team").serialize();
+                $.ajax({
+                    type: "POST",
+                    url: 'Cplxbj/Updating',
+                    data: data,
+                    dataType: "json",
+                    success: function (result) {
+                        if (result.result == "success") {
+                            update_success(dialog);
+                        }
+                        else {
+                            update_fail(dialog);
+                        }
+                    },
+                    error: function () {
+                        error(dialog);
+                    }
+                });
+            });
+        }
+        function showBigImg(src) {
+            $('#imgInModalID').attr('src',src);
+            $('#imgModal').modal({
+                keyboard: true
+            })
+        }
+    </script>
 </body>
 </html>
 

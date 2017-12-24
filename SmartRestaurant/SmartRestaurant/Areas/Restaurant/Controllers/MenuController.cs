@@ -43,6 +43,7 @@ namespace SmartRestaurant.Areas.Restaurant.Controllers
         public JsonResult Updating(int cdid, int sjcd, String cdmc, String cdurl, String cdms, String cdxh) {
             using (MainDb db = new MainDb()){
                 string sql = "update sys_menu set name = '" + cdmc + "',"
+                                                + " pid = '" + sjcd + "',"
                                                 + " url = '" + cdurl + "',"
                                                 + " remark = '" + cdms + "',"
                                                 + " rank = " + cdxh 

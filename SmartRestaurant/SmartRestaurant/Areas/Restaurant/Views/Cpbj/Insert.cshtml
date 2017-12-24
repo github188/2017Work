@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Insert";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增菜品</title>
+</head>
+<body>
+    <form id="team" class="form-horizontal" role="form" >
+        <div class="form-group">
+            <label class="col-sm-2 control-label">菜品名称:</label>
+            <div class="col-sm-10"><input id="cpmc" name="cpmc" class="form-control" type="text" placeholder="请输入菜品名称"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">菜品类型:</label>
+            <div class="col-sm-10"><select id="cplx" name="cplx" class="form-control"></select></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">菜品单位:</label>
+            <div class="col-sm-10"><select id="cpdw" name="cpdw" class="form-control"></select></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">菜品价格:</label>
+            <div class="col-sm-10"><input id="cpjg" name="cpjg" class="form-control" type="number" placeholder="请输入菜品价格"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">菜品图片:</label>
+            <div class="col-sm-10">
+                <input id="lefile" name="lefile" accept="image/png,image/jpeg,image/jpg"  type="file" style="display:none" >
+                <div class="input-group">
+                    <input id="photoCover" class="form-control" type="text" readonly="readonly" onclick="$('input[id=lefile]').click();">
+                    <span class="input-group-btn">
+                        <a class="btn btn-primary" onclick="$('input[id=lefile]').click();">选择</a>
+                    </span>
+                </div> 
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">菜品序号:</label>
+            <div class="col-sm-10">
+                <div class="input-group spinner">
+                    <input id="cpxh" name="cpxh" type="number" class="form-control" value="1" style="text-align:left">
+                    <div class="input-group-btn-vertical">
+                        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-up"></i></button>
+                        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-down"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">菜品简介:</label>
+            <div class="col-sm-10"><input id="cpms" name="cpms" class="form-control" type="text" placeholder="请输入菜品描述"></div>
+        </div>
+    </form>
+    <script>
+        $(function () {
+            $('.spinner .btn:first-of-type').on('click', function () {
+                $('.spinner input').val(parseInt($('.spinner input').val(), 10) + 1);
+            });
+            $('.spinner .btn:last-of-type').on('click', function () {
+                $('.spinner input').val(parseInt($('.spinner input').val(), 10) - 1);
+            });
+            var obj = @Html.Raw(Json.Encode(Model));
+            for (var i = 0; i < obj.Data.cplx.length; i++) {
+                $("#cplx").append("<option value=" + obj.Data.cplx[i].id + ">" + obj.Data.cplx[i].name + "</option>");
+            }
+            for (var i = 0; i < obj.Data.cpdw.length; i++) {
+                $("#cpdw").append("<option value=" + obj.Data.cpdw[i].id + ">" + obj.Data.cpdw[i].name + "</option>");
+            }
+            $('#photoCover').val("支持jpg、jpeg、png,图片最好为正方形")
+            $('input[id=lefile]').change(function() {  
+                var upFileName = $(this).val();
+                var index1=upFileName.lastIndexOf(".");
+                var index2=upFileName.length;
+                var suffix=upFileName.substring(index1+1,index2);//后缀名
+                if(suffix!="jpg"&&suffix!="jpeg"&&suffix!="png"){
+                    $(this)[0].outerHTML = $(this)[0].outerHTML;//重新初始化了file的html
+                    danger_dialog('请上传符合要求的图片文件（.jpg/.jpeg/.png）！');
+                }
+                else
+                    $('#photoCover').val($(this).val());  
+            });  
+        });
+    </script>
+</body>
+</html>
+
+
+
