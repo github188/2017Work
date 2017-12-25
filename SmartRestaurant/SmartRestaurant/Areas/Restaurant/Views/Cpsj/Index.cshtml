@@ -34,38 +34,36 @@
                     <div class="col-lg-12">
                         <div class="input-group">
                             <span class="input-group-btn">
-                                <select id="cplx-btn" class="selectpicker show-tick" data-width="auto">
-                                </select>
+                                <select id="cplx-btn" class="selectpicker show-tick" data-width="auto"></select>
                             </span>
                             <input id="search-input" type="text" class="form-control" placeholder="请输入菜品名称">
                             <span class="input-group-btn">
                                 <button id="search-btn" class="btn btn-default" type="button">搜索</button>
-                                <button id="btn_add" class="btn btn-primary" href="Cpbj/Insert" title="新增菜品">新增</button>
                             </span>
                         </div><!-- /input-group -->
                     </div><!-- /.col-lg-6 -->
                 </div><!-- /.row -->
             </div>
-                <div id="list-group" class="list-group">                                      
-                </div>
-                <div id="pageSize">
-                    <input id="page" type="hidden">
-                    <nav aria-label="...">
-                        <ul class="pager">
-                            <li><a id="previous" href="#">上一页</a></li>
-                            <li><a id="next" href="#">下一页</a></li>
-                        </ul>
-                    </nav>
-                </div>
+            <div id="list-group" class="list-group">
+            </div>
+            <div id="pageSize">
+                <input id="page" type="hidden">
+                <nav aria-label="...">
+                    <ul class="pager">
+                        <li><a id="previous" href="#">上一页</a></li>
+                        <li><a id="next" href="#">下一页</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
-        <div class="modal fade bs-example-modal-lg text-center" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-            <div class="modal-dialog modal-lg" style="display: inline-block; width: auto;">
-                <div class="modal-content">
-                    <img id="imgInModalID" style="height:500px;width:500px" src="">
-                </div>
+    </div>
+    <div class="modal fade bs-example-modal-lg text-center" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" style="display: inline-block; width: auto;">
+            <div class="modal-content">
+                <img id="imgInModalID" style="height:500px;width:500px" src="">
             </div>
         </div>
+    </div>
     <script>
         $("#panel-body").css("height", $(window).height());
         $("#list-group").css("height", $(window).height() - $("#panel-head").height() - $("#pageSize").height() - 100);
@@ -83,41 +81,6 @@
                 $("#search-input").val("");
                 $("#page").val(1);
                 setList(limit, 0, $("#search-input").val(), $("#cplx-btn").val());
-        });
-        $("#btn_add").click(function (event) {
-            var $this = $(this);
-            var title = $this.attr("title");
-            var url = $this.attr("href");
-            ShowDialog(title, url, function (dialog) {
-                //var data = $("#team").serialize();
-                var formData = new FormData($(team)[0]);
-                //var file = $("#lefile")[0];
-                //var formDate = new FormData(file[0].name,file[0])
-                //formData.append("username", "test");
-                $.ajax({
-                    type: "POST",
-                    url: 'Cpbj/Inserting',
-                    data: formData,
-                    cache: false,//cache只有GET方式的时候有效 true的话会读缓存 false的话会在url后面加一个时间缀，让它跑到服务器获取结果
-                    dataType: "json",
-                    processData: false,//当设置为true的时候,jquery ajax 提交的时候不会序列化 data，而是直接使用data
-                    contentType: false,// ajax 中 contentType 设置为 false 是为了避免 JQuery 对其操作，从而失去分界符，而使服务器不能正常解析文件。
-                    success: function (result) {
-                        if (result.result == "success") {
-                            insert_success1(dialog);
-                            var limit = parseInt($("#list-group").height() / 165);
-                            var page = parseInt($("#page").val())
-                            setList(limit, (page-1)*limit, $("#search-input").val(), $("#cplx-btn").val());
-                        }
-                        else {
-                            insert_fail(dialog);
-                        }
-                    },
-                    error: function () {
-                        error(dialog);
-                    }
-                });
-            });
         });
         $("#cplx-btn").change(function(){
             $("#search-input").val("");
@@ -158,7 +121,7 @@
             }
             $.ajax({
                 type: "post",
-                url: "Cpbj/getList",
+                url: "Cpsj/getList",
                 async: true,
                 data: data,
                 dataType: "json",
@@ -175,8 +138,8 @@
                         $("#next").show();
                     }
 
-                    for (var i = 0; i < result.rows.length; i++) {  
-                        $("#list-group").append("<div class='list-group-item'><ul class='media-list'><li class='media'>"
+                    for (var i = 0; i < result.rows.length; i++) {
+                        var html = "<div class='list-group-item'><ul class='media-list'><li class='media'>"
                                             + "<div class='media-left'>"
                                                 + "<a href='javascript:void(0)' onclick='showBigImg(\"" + result.rows[i].img + "\")'>"
                                                     + "<img class='media-object img-rounded' src='" + result.rows[i].img + "' style='width:134px;height:134px' alt='...'>"
@@ -190,9 +153,14 @@
                                                 + "<p>" + result.rows[i].remark + "</p>"
                                             + "</div>"
                                             + "<div class='media-right'>"
-                                            + "<button class='btn btn-info' onclick='toEdit(" + result.rows[i].id + ")'>编辑</button>"
-                                            //+ "<button class='btn btn-warning'>详情</button>"
-                                            + "<button class='btn btn-danger' onclick='toDelete(" + result.rows[i].id + ")'>删除</button></div></li></ul></div>");
+                        if(result.rows[i].sfsj==0)//未上架 上架 即 insert
+                            html = html + "<button class='btn btn-info' onclick='Insert(" + result.rows[i].id + ")'>上架</button></div></li></ul></div>";
+                        else{//已上架 则显示修改数量和下架 修改数量则是update 下架则是delete
+                            html = html+ "<button class='btn btn-info' onclick='Update(" + result.rows[i].id + ")'>修改数量</button>"
+                                    + "<button class='btn btn-info' onclick='Delete(" + result.rows[i].id + ")'>下架</button>"
+                                    + "</div></li></ul></div>";
+                        }
+                        $("#list-group").append(html);
                     };
                 },
                 error: function () {
@@ -201,48 +169,20 @@
                 }
             });
         }
-        function toEdit(id) {
-            var title = "菜品编辑";
-            var url = 'Cpbj/Update?id=' + id;
-            ShowDialog(title, url, function (dialog) {
-                var formData = new FormData($(team)[0]);
-                $.ajax({
-                    type: "POST",
-                    url: 'Cpbj/Updating',
-                    data: formData,
-                    cache: false,
-                    dataType: "json",
-                    processData: false,
-                    contentType: false,
-                    success: function (result) {
-                        if (result.result == "success") {
-                            update_success1(dialog);
-                            var limit = parseInt($("#list-group").height() / 165);
-                            var page = parseInt($("#page").val())
-                            setList(limit, (page-1)*limit, $("#search-input").val(), $("#cplx-btn").val());
-                        }
-                        else {
-                            update_fail(dialog);
-                        }
-                    },
-                    error: function () {
-                        error(dialog);
-                    }
-                });
-            });
-        }
-        function toDelete(id) {
-            var title = "删除菜品";
-            var url = "Cpbj/Delete";
-            var data = { id: id };
-            var msg = "确定删除该菜品吗？";
-            ShowDialog_delete1(title, msg, url, data)
-        }
         function showBigImg(src) {
             $('#imgInModalID').attr('src',src);
             $('#imgModal').modal({
                 keyboard: true
             })
+        }
+        function Insert(cpid){
+
+        }
+        function Update(cpid){
+        
+        }
+        function Delete(cpid){
+        
         }
     </script>
 </body>

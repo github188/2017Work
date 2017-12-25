@@ -1583,6 +1583,9 @@
     <Content Include="Content\quickui\libs\thirdparty\font-awesome\css\font-awesome.css" />
     <Content Include="Content\quickui\libs\thirdparty\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\quickui\libs\thirdparty\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\restaurant\datetimepicker\bootstrap-datetimepicker.css" />
+    <Content Include="Content\restaurant\datetimepicker\bootstrap-datetimepicker.js" />
+    <Content Include="Content\restaurant\datetimepicker\moment-with-locales.js" />
     <Content Include="Content\restaurant\dialog\bootstrap-dialog.css" />
     <Content Include="Content\restaurant\dialog\bootstrap-dialog.js" />
     <Content Include="Content\restaurant\img\miss.jpg" />
@@ -1689,6 +1692,7 @@
     <Content Include="Areas\Restaurant\Views\Ddgl\Index.cshtml" />
     <Content Include="Areas\Restaurant\Views\Ddgl\Insert.cshtml" />
     <Content Include="Areas\Restaurant\Views\Ddgl\Update.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Cpsj\Index.cshtml" />
     <None Include="Properties\PublishProfiles\release.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\css\page-default.css" />
@@ -1762,6 +1766,7 @@
     <Compile Include="Areas\Restaurant\Controllers\CzlxbjController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\CzxxbjController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\DdglController.cs" />
+    <Compile Include="Areas\Restaurant\Controllers\CpsjController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\HomeController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\JsglController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\MenuController.cs" />

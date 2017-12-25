@@ -129,7 +129,7 @@ namespace SmartRestaurant.Areas.Restaurant.Controllers
         public JsonResult getList(int limit,int offset,string search,int type) {
             using (MainDb db = new MainDb()) {
                 string cpmc = "";       
-                if (search != null && "".Equals(search))
+                if (search != null && !"".Equals(search))
                     cpmc = search;
                 var tList = db.zzdc_cpxx.Where(p => SqlFunctions.PatIndex("%" + cpmc + "%", p.name) > 0);
                 if(type!=0)
