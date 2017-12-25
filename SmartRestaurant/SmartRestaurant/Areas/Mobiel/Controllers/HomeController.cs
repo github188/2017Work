@@ -146,6 +146,42 @@ namespace SmartRestaurant.Areas.Mobiel.Controllers
             
         }
         
+
+        public ActionResult CheckOutOrder()
+        {
+            using (MainDb db = new MainDb())
+            {
+                var model=db.zzdc_ddxq.Where(p=>p.ddxx_id==OrderID).Join(db.zzdc_cpxx, p1 => p1.cpxx_id, p2 => p2.id, (p1, p2) => new MenuItem
+                {
+                    count = (int)p1.cpsl,
+                    id = p2.id,
+                    name = p2.name,
+                    summary = p2.remark,
+                    price = p2.price,
+                    imgUrl = p2.img
+                }).ToList();
+
+                return View(model);
+            }
+
+        }
+
+        public ActionResult SureCheckOutOrder()
+        {
+            using (MainDb db = new MainDb())
+            {
+                var order = db.zzdc_ddxx.Where(p => p.id == OrderID).FirstOrDefault();
+
+                if(order!=null)
+                {
+                    order.zd_id = 2;
+                    db.SaveChanges();
+                    return Json(new { IsSuccess = true }, JsonRequestBehavior.AllowGet);
+                }
+
+                return Json(new { IsSuccess = false }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 
     public class Menu

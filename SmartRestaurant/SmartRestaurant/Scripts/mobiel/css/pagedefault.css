@@ -26,6 +26,7 @@ body {
     flex-direction:row;
     width:100%;
     height:calc(100% - 10rem);
+    margin-bottom:6rem;
 }
 
 .main-left{
@@ -115,7 +116,7 @@ body {
     bottom:0;
     height:6.5rem;
     width:100%;
-    background-color:rgba(80,80,80,0.7);
+    background-color:rgb(80,80,80);
     line-height:6.5rem;
     font-size:3rem;
     display:flex;
@@ -143,6 +144,7 @@ body {
     font-size:2rem;
     line-height:2rem;
     align-self:center;
+    color:#ddd;
 }
 .footer .right{
     /*background-color:rgb(58, 179, 196);*/
@@ -159,7 +161,7 @@ body {
     min-height:8rem;
     max-height:20rem;
     overflow-y:scroll;
-    background-color:rgba(220,220,220,0.6);
+    background-color:rgba(220,220,220,1);
     transform:translate3d(0,0,0);
    -webkit-transition: -webkit-transform 1s;
 	transition: transform 1s;
@@ -167,12 +169,12 @@ body {
 }
 
 .shoping_car_content .topbar{
-    height:2rem;
+    height:2.5rem;
     background-color:#779bd0;
     text-align:center;
     /*padding-right:1rem;*/
     width:100%;
-    font-size:2rem;
+    font-size:2.5rem;
 }
 
 .bottomhidden{
@@ -208,4 +210,20 @@ body {
     font-size:3rem;
     color:#799e9e;
     font-weight:900;
+}
+.itemlist > li >span{
+    display:inline-block;
+    width:33%
+}
+
+.checkdiv{
+    height:4rem;
+    font-size:3rem;
+    line-height:4rem;
+    text-align:center;
+    background-color:rgb(185,140,101);
+    border-radius:1rem;
+    margin:1rem 2rem 1rem 2rem;
+    cursor:pointer;
+    color:#eee;
 }

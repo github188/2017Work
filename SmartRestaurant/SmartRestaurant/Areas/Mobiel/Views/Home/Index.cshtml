@@ -19,19 +19,19 @@
     <script src="~/Scripts/vue/vue.min.js" type="text/javascript"></script>
 </head>
 <body>
-    <div class="head">
-        <h1>我是标题</h1>
+    <div class="head" style="background:url(/Content/img/title_DC.png) no-repeat; background-size:100% 100%">
+        <h1 style="height:14rem"></h1>
     </div>
     <!-- 自定义页面 -->
     <div class="main-body">
         <div class="main-left" >
             <ul class="main-menu">
-                <li @*data-forid="test1"*@ v-bind:data-forid="'test'+item.tagID" v-for="item in lists" v-on:click="active">{{item.tagName}}</li>
+                <li @*data-forid="test1"*@ v-bind:data-forid="'my_Tag'+item.tagID" v-for="item in lists" v-on:click="active">{{item.tagName}}</li>
 
             </ul>
         </div>
         <div class="main-right">
-            <div v-bind:id="'test'+item.tagID" v-for="item in lists">
+            <div v-bind:id="'my_Tag'+item.tagID" v-for="item in lists">
                 <h3>{{item.tagName}}</h3>
                 <ul>
                     <li v-for="t in item.items">
@@ -73,6 +73,7 @@
 
     <div id="shoping_car_content" class="shoping_car_content bottomhidden">
         <div class="topbar" onclick="footerTigger()" ><span class='glyphicon glyphicon-chevron-down'></span></div>
+        <div v-if="hasSubmitItems.length>0" class="checkdiv" onclick="gotoCheckorder()">结账</div>
         <div v-if="currentChoiceItems.length>0">已选菜品</div>
         <ul>
             <li v-for="item in currentChoiceItems">
@@ -161,7 +162,7 @@
                 {
                     $(this).next().css("visibility", "hidden");
                     $(this).css("visibility", "hidden");
-                    jss();//改变按钮样式  
+                    jss();//改变按钮样式
                     return
                 }
 
@@ -215,7 +216,7 @@
 
             shopData.totalCount++;
             shopData.totalPrice += item.price;
-            
+
             var isExist=false;
 
             for(var i in shopData.currentChoiceItems)
@@ -254,7 +255,7 @@
             if (item.count <= 0) {
                 $(event.target).next().css("visibility", "hidden");
                 $(event.target).css("visibility", "hidden");
-                totalChangeAction();//改变按钮样式  
+                totalChangeAction();//改变按钮样式
                 return
             }
         }
@@ -278,11 +279,11 @@
                 $(".right").attr("disabled", "disabled");
             }
         };
-    
+
         function footerTigger(){
             $('#shoping_car_content').toggleClass("bottomhidden");
         }
-   
+
         function GotoConfrim()
         {
             window.location.href="@Url.Content("~/Mobiel/Home/ConfrimSubmit")?data="+JSON.stringify(shopData.currentChoiceItems);
@@ -302,7 +303,9 @@
 
             });
         }
-
+        function gotoCheckorder(){
+            window.location.href="@Url.Content("~/Mobiel/Home/CheckOutOrder")";
+        }
      </script>
 </body>
 </html>

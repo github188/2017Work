@@ -1694,6 +1694,8 @@
     <Content Include="Areas\Restaurant\Views\Ddgl\Update.cshtml" />
     <Content Include="Areas\Restaurant\Views\Cpsj\Index.cshtml" />
     <Content Include="Areas\Restaurant\Views\Xsjh\Index.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Xsjh\Insert.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Xsjh\Update.cshtml" />
     <None Include="Properties\PublishProfiles\release.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\css\page-default.css" />
