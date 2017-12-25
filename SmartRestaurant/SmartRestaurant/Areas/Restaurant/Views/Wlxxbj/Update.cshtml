@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Update";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增物料类型</title>
+</head>
+<body>
+    <form id="team" class="form-horizontal" role="form">
+        <input id="wlxxid" name="wlxxid" class="form-control" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">名称:</label>
+            <div class="col-sm-10"><input id="wlxxname" name="wlxxname" class="form-control" type="text" placeholder="请输入菜品类型名称"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">物料类型:</label>
+            <div class="col-sm-10">
+                <select id="wllx" name="wllx" class="form-control"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">计量单位:</label>
+            <div class="col-sm-10">
+                <select id="zd" name="zd" class="form-control"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">描述:</label>
+            <div class="col-sm-10"><input id="wlxxms" name="wlxxms" class="form-control" type="text" placeholder="请输入菜品类型描述"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">序号:</label>
+            <div class="col-sm-10">
+                <div class="input-group spinner">
+                    <input id="wlxxxh" name="wlxxxh" type="number" class="form-control" value="1" style="text-align:left">
+                    <div class="input-group-btn-vertical">
+                        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-up"></i></button>
+                        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-down"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+        $(function () {
+            $('.spinner .btn:first-of-type').on('click', function () {
+                $('.spinner input').val(parseInt($('.spinner input').val(), 10) + 1);
+            });
+            $('.spinner .btn:last-of-type').on('click', function () {
+                $('.spinner input').val(parseInt($('.spinner input').val(), 10) - 1);
+            });
+            var obj = @Html.Raw(Json.Encode(Model));
+            $("#wlxxid").val(obj.Data.wlxx.id);
+            $("#wlxxname").val(obj.Data.wlxx.name);
+            //$("#wlxxstatus").val(obj.Data.wlxx.status);
+            $("#wlxxms").val(obj.Data.wlxx.remark);
+            $("#wlxxxh").val(obj.Data.wlxx.rank);
+            for (var i = 0; i < obj.Data.wllx.length; i++) {
+                if(obj.Data.wllx[i].id==obj.Data.wlxx.wllx_id)
+                    $("#wllx").append("<option value=" +obj.Data.wllx[i].id + " selected='selected'>" + obj.Data.wllx[i].name + "</option>");
+                else
+                    $("#wllx").append("<option value=" +obj.Data.wllx[i].id + ">" + obj.Data.wllx[i].name + "</option>");
+            }
+            for (var i = 0; i < obj.Data.zd.length; i++) {
+                if(obj.Data.wllx[i].id==obj.Data.wlxx.wllx_id)
+                    $("#zd").append("<option value=" +obj.Data.zd[i].id + " selected='selected'>" + obj.Data.zd[i].name + "</option>");
+                else
+                    $("#zd").append("<option value=" +obj.Data.zd[i].id + ">" + obj.Data.zd[i].name + "</option>");
+            }
+            
+        });
+        
+    </script>
+</body>
+</html>
+

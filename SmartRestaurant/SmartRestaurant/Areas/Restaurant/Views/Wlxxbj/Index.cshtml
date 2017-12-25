@@ -29,13 +29,13 @@
     <div id="panel-body" class="panel-body" style="padding-bottom:0px;height:662px">
         <div id="toolbar" class="btn-group">
             <div>
-                <button id="btn_add" type="button" class="btn btn-default" href="Wllxbj/Insert" title="新增类型">
+                <button id="btn_add" type="button" class="btn btn-default" href="Wlxxbj/Insert" title="新增类型">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
                 </button>
-                <button id="btn_edit" type="button" class="btn btn-default" href="Wllxbj/Update" title="类型修改">
+                <button id="btn_edit" type="button" class="btn btn-default" href="Wlxxbj/Update" title="类型修改">
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
                 </button>
-                <button id="btn_delete" type="button" class="btn btn-default" href="Wllxbj/Delete" title="类型删除">
+                <button id="btn_delete" type="button" class="btn btn-default" href="Wlxxbj/Delete" title="类型删除">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
                 </button>
             </div>
@@ -68,7 +68,7 @@
             //初始化Table
             oTableInit.Init = function () {
                 $('#tb_departments').bootstrapTable({
-                    url: 'Wllxbj/getList',         //请求后台的URL（*）
+                    url: 'Wlxxbj/getList',         //请求后台的URL（*）
                     method: 'get',                      //请求方式（*）
                     toolbar: '#toolbar',                //工具按钮用哪个容器
                     striped: false,                      //是否显示行间隔色
@@ -97,9 +97,20 @@
                         checkbox: true
                     },{
                         field: 'name',
-                        title: '名称',
-                        align: 'center',//水平
-                        width:200
+                        title: '名称'
+
+                    }, {
+                        field: 'type',
+                        title: '物料类型'
+
+                    }, {
+                        field: 'kcsl',
+                        title: '库存数量'
+
+                    }, {
+                        field: 'dw',
+                        title: '计量单位'
+
                     }, {
                         field: 'remark',
                         title: '描述'
@@ -141,7 +152,7 @@
                         var data = $("#team").serialize();
                         $.ajax({
                             type: "POST",
-                            url: 'Wllxbj/Inserting',
+                            url: 'Wlxxbj/Inserting',
                             data: data,
                             dataType: "json",
                             success: function (result) {
@@ -172,7 +183,7 @@
                             var data = $("#team").serialize();
                             $.ajax({
                                 type: "POST",
-                                url: 'Wllxbj/Updating',
+                                url: 'Wlxxbj/Updating',
                                 data: data,
                                 dataType: "json",
                                 success: function (result) {
