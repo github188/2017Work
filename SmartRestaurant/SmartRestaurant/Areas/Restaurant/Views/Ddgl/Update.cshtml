@@ -11,29 +11,66 @@
 </head>
 <body>
     <form id="team" class="form-horizontal" role="form">
-        <input id="cplxid" name="cplxid" class="form-control" type="hidden">
+        <input id="ddxxid" name="ddxxid" class="form-control" type="hidden">
         <div class="form-group">
-            <label class="col-sm-2 control-label">名称:</label>
-            <div class="col-sm-10"><input id="cplxmc" name="cplxmc" class="form-control" type="text" placeholder="请输入菜品类型名称"></div>
+            <label class="col-sm-2 control-label">餐桌ID:</label>
+            <div class="col-sm-10"><input id="ddxxczxx_id" name="ddxxczxx_id" class="form-control" type="text" placeholder="请输入餐桌ID"></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">描述:</label>
-            <div class="col-sm-10"><input id="cplxms" name="cplxms" class="form-control" type="text" placeholder="请输入菜品类型描述"></div>
+            <label class="col-sm-2 control-label">创建时间</label>
+            <!--指定 date标记-->
+            <div class="col-sm-10"><input type='text' class="form-control" id='ddxxcjsj' name="ddxxcjsj" /></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">序号:</label>
-            <div class="col-sm-10">
-                <div class="input-group spinner">
-                    <input id="cplxxh" name="cplxxh" type="number" class="form-control" value="1" style="text-align:left">
-                    <div class="input-group-btn-vertical">
-                        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-up"></i></button>
-                        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-down"></i></button>
-                    </div>
-                </div>
-            </div>
+            <label class="col-sm-2 control-label">创建人:</label>
+            <div class="col-sm-10"><input id="ddxxcjr" name="ddxxcjr" class="form-control" type="text" placeholder="请输入创建人"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">备注:</label>
+            <div class="col-sm-10"><input id="ddxxremark" name="ddxxremark" class="form-control" type="text" placeholder="请输入备注"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">接单时间</label>
+            <!--指定 date标记-->
+            <div class="col-sm-10"><input type='text' class="form-control" id='ddxxjdsj' name="ddxxjdsj" /></div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">接单人:</label>
+            <div class="col-sm-10"><input id="ddxxjdr" name="ddxxjdr" class="form-control" type="text" placeholder="请输入接单人"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">接单备注:</label>
+            <div class="col-sm-10"><input id="ddxxjd_remark" name="ddxxjd_remark" class="form-control" type="text" placeholder="请输入接单备注"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">付款时间</label>
+            <!--指定 date标记-->
+            <div class="col-sm-10"><input type='text' class="form-control" id='ddxxfksj' name="ddxxfksj" /></div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">付款人:</label>
+            <div class="col-sm-10"><input id="ddxxfkr" name="ddxxfkr" class="form-control" type="text" placeholder="请输入付款人姓名"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">应需付款:</label>
+            <div class="col-sm-10"><input id="ddxxyxfk" name="ddxxyxfk" class="form-control" type="text" placeholder="请输入应需付款金额"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">实际付款:</label>
+            <div class="col-sm-10"><input id="ddxxsjfk" name="ddxxsjfk" class="form-control" type="text" placeholder="请输入实际付款金额"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">状态:</label>
+            <div class="col-sm-10"><input id="ddxxzd_id" name="ddxxzd_id" class="form-control" type="text" placeholder="请输入订单状态"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">评价:</label>
+            <div class="col-sm-10"><input id="ddxxpj" name="ddxxpj" class="form-control" type="text" placeholder="请输入客户评价"></div>
         </div>
     </form>
-    <script>
+<script>
         $(function () {
             $('.spinner .btn:first-of-type').on('click', function () {
                 $('.spinner input').val(parseInt($('.spinner input').val(), 10) + 1);
@@ -42,10 +79,62 @@
                 $('.spinner input').val(parseInt($('.spinner input').val(), 10) - 1);
             });
             var obj = @Html.Raw(Json.Encode(Model));
-            $("#cplxid").val(obj.Data.cplx.id);
-            $("#cplxmc").val(obj.Data.cplx.name);
-            $("#cplxms").val(obj.Data.cplx.remark);
-            $("#cplxxh").val(obj.Data.cplx.rank);
+            $("#ddxxid").val(obj.Data.ddxx.id);
+            $("#ddxxczxx_id").val(obj.Data.ddxx.czxx_id);
+            $("#ddxxcjr").val(obj.Data.ddxx.cjr);
+            $("#ddxxremark").val(obj.Data.ddxx.remark);
+            $("#ddxxjdr").val(obj.Data.ddxx.jdr);
+            $("#ddxxjd_remark").val(obj.Data.ddxx.jd_remark);
+            $("#ddxxfkr").val(obj.Data.ddxx.fkr);
+            $("#ddxxyxfk").val(obj.Data.ddxx.yxfk);
+            $("#ddxxsjfk").val(obj.Data.ddxx.sjfk);
+            $("#ddxxzd_id").val(obj.Data.ddxx.zd_id);
+            $("#ddxxpj").val(obj.Data.ddxx.pj);
+
+            function jsonDateFormat(jsonDate) {
+                if (typeof jsonDate != "string") {
+                    return "-";
+                }
+                //json日期格式转换为正常格式
+                var jsonDateStr = jsonDate.toString();//此处用到toString（）是为了让传入的值为字符串类型，目的是为了避免传入的数据类型不支持.replace（）方法
+                try {
+                    var k = parseInt(jsonDateStr.replace("/Date(", "").replace(")/", ""), 10);
+                    if (k < 0)
+                        return null;
+
+                    var date = new Date(parseInt(jsonDateStr.replace("/Date(", "").replace(")/", ""), 10));
+                    var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+                    var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                    var hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+                    var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+                    var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+                    var milliseconds = date.getMilliseconds();
+                    return date.getFullYear() + "/" + month + "/" + day + " " + hours + ":" + minutes + ":" + seconds;
+                }
+                catch (ex) {
+                    return "时间格式转换错误";
+                }
+            }
+
+
+
+            $("#ddxxcjsj").val(jsonDateFormat(obj.Data.ddxx.cjsj));
+            $("#ddxxjdsj").val(jsonDateFormat(obj.Data.ddxx.jdsj));
+            $("#ddxxfksj").val(jsonDateFormat(obj.Data.ddxx.fksj));
+
+
+            $('#ddxxcjsj').datetimepicker({
+                format: 'YYYY/MM/DD HH:mm:ss',
+                locale: 'zh-cn'
+            });
+            $('#ddxxjdsj').datetimepicker({
+                format: 'YYYY/MM/DD HH:mm:ss',
+                locale: 'zh-cn'
+            });
+            $('#ddxxfksj').datetimepicker({
+                format: 'YYYY/MM/DD HH:mm:ss',
+                locale: 'zh-cn'
+            });
         });
     </script>
 </body>

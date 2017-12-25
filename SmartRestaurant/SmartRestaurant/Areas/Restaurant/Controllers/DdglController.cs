@@ -36,13 +36,13 @@ namespace SmartRestaurant.Areas.Restaurant.Controllers
 
                 zzdc_ddxx ddxx = new zzdc_ddxx();
                 ddxx.czxx_id = Convert.ToInt32(ddxxczxx_id);
-                //ddxx.cjsj = ddxxcjsj;
+                ddxx.cjsj = Convert.ToDateTime(ddxxcjsj);
                 ddxx.cjr = ddxxcjr;
                 ddxx.remark = ddxxremark;
-                //ddxx.jdsj = ddxxjdsj;
+                ddxx.jdsj = Convert.ToDateTime(ddxxjdsj); 
                 ddxx.jdr = ddxxjdr;
                 ddxx.jd_remark = ddxxjd_remark;
-                //ddxx.fksj = ddxxfksj;
+                ddxx.fksj = Convert.ToDateTime(ddxxfksj); 
                 ddxx.fkr = ddxxfkr;
                 ddxx.yxfk = Convert.ToInt32(ddxxyxfk);
                 ddxx.sjfk = Convert.ToInt32(ddxxsjfk);
@@ -64,14 +64,25 @@ namespace SmartRestaurant.Areas.Restaurant.Controllers
                 return View("Update", Json(new { ddxx = ddxx }));
             }
         }
-        public JsonResult Updating(int ddxxid, string ddxxmc, string ddxxms, string ddxxxh)
+        public JsonResult Updating(int ddxxid, string ddxxczxx_id, string ddxxcjsj, string ddxxcjr, string ddxxremark, string ddxxjdsj, string ddxxjdr, string ddxxjd_remark,
+                                    string ddxxfksj, string ddxxfkr, string ddxxyxfk, string ddxxsjfk, string ddxxzd_id, string ddxxpj)
         {
             using (MainDb db = new MainDb())
             {
-                string sql = "update zzdc_ddxx set name = '" + ddxxmc + "',"
-                                                + " remark = '" + ddxxms + "',"
-                                                + " rank = " + ddxxxh
-                                                + " where id = " + ddxxid;
+                string sql = "update zzdc_ddxx set czxx_id = " + ddxxczxx_id 
+                + ", cjsj = '" + Convert.ToDateTime(ddxxcjsj) + "',"
+                + " cjr = '"+ ddxxcjr+ "',"
+                + " remark = '"+ddxxremark+"',"
+                + " jdsj = '" + Convert.ToDateTime(ddxxjdsj) + "',"
+                + " jdr = '" + ddxxjdr+ "',"
+                + " jd_remark = '"+ddxxjd_remark+"',"
+                + " fksj = '" + Convert.ToDateTime(ddxxfksj) + "',"
+                + " fkr = '"+ddxxfkr+"',"
+                + " yxfk = "+ddxxyxfk
+                + ", sjfk = "+ddxxsjfk
+                + ", zd_id = "+ddxxzd_id
+                + ", pj = '"+ddxxpj+"'"
+                + " where id = " + ddxxid;
                 int count = db.Database.ExecuteSqlCommand(sql);
                 if (count > 0)
                     return Json(new { result = "success" });
