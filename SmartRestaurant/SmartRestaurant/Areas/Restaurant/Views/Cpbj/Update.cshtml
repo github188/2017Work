@@ -7,6 +7,7 @@
 </head>
 <body>
     <form id="team" class="form-horizontal" role="form">
+        <input id="cpid" name="cpid" class="form-control" type="hidden">
         <div class="form-group">
             <label class="col-sm-2 control-label">菜品名称:</label>
             <div class="col-sm-10"><input id="cpmc" name="cpmc" class="form-control" type="text" placeholder="请输入菜品名称"></div>
@@ -33,11 +34,11 @@
                         <a class="btn btn-primary" onclick="$('input[id=lefile]').click();">选择</a>
                     </span>
                 </div>
-                <div class="btn-group">
-                    <button class="btn">预览</button>
-                    <button class="btn">更换</button>
-                </div>
             </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">菜品简介:</label>
+            <div class="col-sm-10"><input id="cpms" name="cpms" class="form-control" type="text" placeholder="请输入菜品描述"></div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">菜品序号:</label>
@@ -50,11 +51,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">菜品简介:</label>
-            <div class="col-sm-10"><input id="cpms" name="cpms" class="form-control" type="text" placeholder="请输入菜品描述"></div>
-        </div>
+        </div>    
     </form>
     <script>
         $(function () {
@@ -65,7 +62,8 @@
                 $('.spinner input').val(parseInt($('.spinner input').val(), 10) - 1);
             });
             var obj = @Html.Raw(Json.Encode(Model));
-            alert(obj.Data.cpxx.cplx_id);
+            $("#cpid").val(obj.Data.cpxx.id);
+            $("#cpmc").val(obj.Data.cpxx.name);
             for (var i = 0; i < obj.Data.cplx.length; i++) {
                 if(obj.Data.cplx[i].id==obj.Data.cpxx.cplx_id) 
                     $("#cplx").append("<option value=" + obj.Data.cplx[i].id + " selected='selected'>" + obj.Data.cplx[i].name + "</option>");
@@ -78,6 +76,10 @@
                 else
                     $("#cpdw").append("<option value=" + obj.Data.cpdw[i].id + ">" + obj.Data.cpdw[i].name + "</option>");
             }
+            $("#cpjg").val(obj.Data.cpxx.price);
+            $("#cpxh").val(obj.Data.cpxx.rank);
+            $("#cpms").val(obj.Data.cpxx.remark);
+
             $('#photoCover').val("支持jpg、jpeg、png,图片最好为正方形")
             $('input[id=lefile]').change(function() {
                 var upFileName = $(this).val();
