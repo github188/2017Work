@@ -24,6 +24,7 @@
     <script src="~/Content/restaurant/other/dialog/dialog-insert.js"></script><!-- 消息dialog -->
     <script src="~/Content/restaurant/other/dialog/dialog-update.js"></script><!-- 消息dialog -->
     <script src="~/Content/restaurant/other/dialog/dialog-delete.js"></script><!-- 消息dialog -->
+
 </head>
 <body>
     <div id="panel-body" class="panel-body" style="padding-bottom:0px;">
@@ -33,32 +34,26 @@
                     <div class="col-lg-12">
                         <div class="input-group">
                             <span class="input-group-btn">
-                                <select class="selectpicker show-tick" data-width="100px">
-                                    <option>所有类型</option>
-                                    <option>小吃</option>
-                                    <option>烤制</option>
+                                <select id="cplx" class="selectpicker show-tick" data-width="auto">
                                 </select>
                             </span>
-                            <input type="text" class="form-control" placeholder="请输入菜品名称">
+                            <input id="search-input" type="text" class="form-control" placeholder="请输入菜品名称">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">搜索</button>
+                                <button id="search-btn" class="btn btn-default" type="button">搜索</button>
                                 <button id="btn_add" class="btn btn-primary" href="Cpbj/Insert" title="新增菜品">新增</button>
                             </span>
                         </div><!-- /input-group -->
                     </div><!-- /.col-lg-6 -->
                 </div><!-- /.row -->
             </div>
-                <div id="list-group" class="list-group">                    
-                    
+                <div id="list-group" class="list-group">                                      
                 </div>
                 <div id="pageSize">
+                    <input id="page" type="hidden">
                     <nav aria-label="...">
-                        <ul class="pagination">
-                            <li><a href="#"><span aria-hidden="true">&laquo;</span></a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2 </a></li>
-                            <li><a href="#">3 </a></li>
-                            <li><a href="#"><span aria-hidden="true">&raquo;</span></a></li>
+                        <ul class="pager">
+                            <li><a href="#">上一页</a></li>
+                            <li><a href="#">下一页</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -73,10 +68,18 @@
         </div>
     <script>
         $("#panel-body").css("height", $(window).height());
-        $("#list-group").css("height", $(window).height() - $("#panel-head").height() - $("#pageSize").height()-58);
+        $("#list-group").css("height", $(window).height() - $("#panel-head").height() - $("#pageSize").height() - 100);
+        var obj = @Html.Raw(Json.Encode(Model));
+        $("#cplx").append("<option value=0>所有类型</option>");
+        for (var i = 0; i < obj.Data.cplx.length; i++) {
+            $("#cplx").append("<option value=" + obj.Data.cplx[i].id + ">" + obj.Data.cplx[i].name + "</option>");
+        }
         $(window).resize(function () {
-            $("#panel-body").css("height", $(window).height());
-            $("#list-group").css("height", $(window).height() - $("#panel-head").height() - $("#pageSize").height() - 58);
+                resize_flag = true;
+                $("#panel-body").css("height", $(window).height());
+                $("#list-group").css("height", $(window).height() - $("#panel-head").height() - $("#pageSize").height() - 100);
+                var limit = parseInt($("#list-group").height() / 165);
+                setList(limit, 1, "", 1);
         });
         $("#btn_add").click(function (event) {
             var $this = $(this);
@@ -110,46 +113,74 @@
                 });
             });
         });
+        $("#cplx").change(function(){
+            $("#search-input").val("");
+            var limit = parseInt($("#list-group").height() / 165);
+            setList(limit, 1, "", $(this).val());
+        });
+        $("#search-btn").click(function(){
+            var limit = parseInt($("#list-group").height() / 165);
+            setList(limit, 1, $("#search-input").val(), $("#cplx").val());
+        });
         $(function () {
+            //alert($("#list-group").height() / 165);
+            var limit = parseInt($("#list-group").height() / 165);
+            setList(limit, 1, "", 0);
+        });
+        function setList(limit, offset, search, type) {//页面行数，页码，搜索内容，类型
+            var data = {
+                limit : limit,
+                offset : offset,
+                search: search,
+                type : type
+            }
             $.ajax({
                 type: "post",
                 url: "Cpbj/getList",
                 async: true,
+                data: data,
+                dataType: "json",
                 success: function (data) {
-                    for (var i=0; i < data.rows.length;i++){
+                    $("#list-group").empty();
+                    for (var i = 0; i < data.rows.length; i++) {
                         $("#list-group").append("<div class='list-group-item'><ul class='media-list'><li class='media'>"
                                             + "<div class='media-left'>"
                                                 + "<a href='javascript:void(0)' onclick='showBigImg(\"" + data.rows[i].img + "\")'>"
-                                                    + "<img class='media-object img-rounded' src='"+data.rows[i].img+"' style='width:134px;height:134px' alt='...'>"
+                                                    + "<img class='media-object img-rounded' src='" + data.rows[i].img + "' style='width:134px;height:134px' alt='...'>"
                                                 + "</a>"
                                             + "</div>"
                                             + "<div class='media-body'>"
                                                 + "<h4>"
-                                                    + "<label style='color:black'>" + data.rows[i].name + "</label><span style='color:red'> " + data.rows[i].price + "￥/" + data.rows[i].unit+ "</span>"
+                                                    + "<label style='color:black'>" + data.rows[i].name + "</label><span style='color:red'> " + data.rows[i].price + "￥/" + data.rows[i].unit + "</span>"
                                                 + "</h4>"
                                                 + "<p>" + data.rows[i].type + "</p>"
                                                 + "<p>" + data.rows[i].remark + "</p>"
                                             + "</div>"
                                             + "<div class='media-right'>"
-                                            + "<button class='btn btn-info' onclick='toEdit("+data.rows[i].id+")'>编辑</button>"
-                                            + "<button class='btn btn-warning'>详情</button>"
-                                            + "<button class='btn btn-danger'>删除</button></div></li></ul></div>");};
+                                            + "<button class='btn btn-info' onclick='toEdit(" + data.rows[i].id + ")'>编辑</button>"
+                                            //+ "<button class='btn btn-warning'>详情</button>"
+                                            + "<button class='btn btn-danger' onclick='toDelete(" + data.rows[i].id + ")'>删除</button></div></li></ul></div>");
+                    };
                 },
                 error: function () {
+                    $("#list-group").empty();
                     $("#list-group").append("<p style='text-align:center'>没有找到匹配的记录</p>")
                 }
             });
-        });
+        }
         function toEdit(id) {
             var title = "菜品编辑";
             var url = 'Cpbj/Update?id=' + id;
             ShowDialog(title, url, function (dialog) {
-                var data = $("#team").serialize();
+                var formData = new FormData($(team)[0]);
                 $.ajax({
                     type: "POST",
-                    url: 'Cplxbj/Updating',
-                    data: data,
+                    url: 'Cpbj/Updating',
+                    data: formData,
+                    cache: false,
                     dataType: "json",
+                    processData: false,
+                    contentType: false,
                     success: function (result) {
                         if (result.result == "success") {
                             update_success(dialog);
@@ -163,6 +194,13 @@
                     }
                 });
             });
+        }
+        function toDelete(id) {
+            var title = "删除菜品";
+            var url = "Cpbj/Delete";
+            var data = { id: id };
+            var msg = "确定删除该菜品吗？";
+            ShowDialog_delete(title, msg, url, data)
         }
         function showBigImg(src) {
             $('#imgInModalID').attr('src',src);
