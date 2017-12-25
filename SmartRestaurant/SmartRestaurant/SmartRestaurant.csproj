@@ -1680,6 +1680,9 @@
     <Content Include="Areas\Restaurant\Views\Wlxxbj\Index.cshtml" />
     <Content Include="Areas\Restaurant\Views\Wlxxbj\Insert.cshtml" />
     <Content Include="Areas\Restaurant\Views\Wlxxbj\Update.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Jsgl\Index.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Jsgl\Update.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Jsgl\Insert.cshtml" />
     <None Include="Properties\PublishProfiles\release.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\css\page-default.css" />
@@ -1753,6 +1756,7 @@
     <Compile Include="Areas\Restaurant\Controllers\CzlxbjController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\CzxxbjController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Restaurant\Controllers\JsglController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\MenuController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\WllxbjController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\WlxxbjController.cs" />

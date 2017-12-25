@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Insert";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增菜品类型</title>
+</head>
+<body>
+    <form id="team" class="form-horizontal" role="form">
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">名称:</label>
+            <div class="col-sm-10"><input id="jsglmc" name="jsglmc" class="form-control" type="text" placeholder="请输入菜品类型名称"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">描述:</label>
+            <div class="col-sm-10"><input id="jsglms" name="jsglms" class="form-control" type="text" placeholder="请输入菜品类型描述"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">序号:</label>
+            <div class="col-sm-10">
+                <div class="input-group spinner">
+                    <input id="jsglxh" name="jsglxh" type="number" class="form-control" value="1" style="text-align:left">
+                    <div class="input-group-btn-vertical">
+                        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-up"></i></button>
+                        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-down"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+        $(function () {
+            $('.spinner .btn:first-of-type').on('click', function () {
+                $('.spinner input').val(parseInt($('.spinner input').val(), 10) + 1);
+            });
+            $('.spinner .btn:last-of-type').on('click', function () {
+                $('.spinner input').val(parseInt($('.spinner input').val(), 10) - 1);
+            });
+        });
+    </script>
+ </body>
+</html>
+
