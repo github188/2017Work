@@ -19,7 +19,21 @@ namespace SmartRestaurant.Areas.Restaurant.Controllers
                 return View("index", Json(new { cplx = cplx }));
             }
         }
-        public JsonResult getList(int limit, int offset, string search, int type)
+        public JsonResult Updating(int cpid, int sfsj)
+        {
+            using (MainDb db = new MainDb())
+            {
+                string sql= "update zzdc_cpxx set sfsj = " + sfsj
+                                            + " where id = " + cpid;
+                int count = db.Database.ExecuteSqlCommand(sql);
+                if (count > 0)
+                    return Json(new { result = "success" });
+                else
+                    return Json(new { result = "fail" });
+            }
+        }
+
+        public JsonResult getList(int limit, int offset, string search, int type,int sfsj)
         {
             using (MainDb db = new MainDb())
             {
@@ -29,6 +43,9 @@ namespace SmartRestaurant.Areas.Restaurant.Controllers
                 var tList = db.zzdc_cpxx.Where(p => SqlFunctions.PatIndex("%" + cpmc + "%", p.name) > 0);
                 if (type != 0)
                     tList = tList.Where(p => p.cplx_id == type);
+                if (sfsj != 2)
+                    tList = tList.Where(p => p.sfsj == sfsj);
+
                 var varList = tList.Join(db.zzdc_cplx, p1 => p1.cplx_id, p2 => p2.id, (p1, p2) => new {
                     id = p1.id,
                     name = p1.name,
