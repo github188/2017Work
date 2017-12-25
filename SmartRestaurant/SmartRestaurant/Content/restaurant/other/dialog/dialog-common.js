@@ -56,3 +56,17 @@ function danger_dialog(msg) {
         }],
     });
 }
+function success_dialog(msg) {
+    BootstrapDialog.show({
+        type: BootstrapDialog.TYPE_SUCCESS,
+        title: '提示 ',
+        message: msg,
+        size: BootstrapDialog.SIZE_SMALL,//size为小，默认的对话框比较宽
+        buttons: [{// 设置关闭按钮
+            label: '关闭',
+            action: function (dialogItself) {
+                dialogItself.close();
+            }
+        }],
+    });
+}
