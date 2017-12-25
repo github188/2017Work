@@ -28,20 +28,8 @@ namespace SmartRestaurant.Areas.Restaurant.Controllers
         {
             return View("Insert");
         }
-        public JsonResult Inserting(
-                string ddxxczxx_id,
-                string ddxxcjsj,
-                string ddxxcjr,
-                string ddxxremark,
-                string ddxxjdsj,
-                string ddxxjdr,
-                string ddxxjd_remark,
-                string ddxxfksj,
-                string ddxxfkr,
-                string ddxxyxfk,
-                string ddxxsjfk,
-                string ddxxzd_id,
-                string ddxxpj)
+        public JsonResult Inserting(string ddxxczxx_id, string ddxxcjsj, string ddxxcjr, string ddxxremark, string ddxxjdsj, string ddxxjdr, string ddxxjd_remark,
+                                    string ddxxfksj, string ddxxfkr, string ddxxyxfk, string ddxxsjfk, string ddxxzd_id, string ddxxpj)
         {
             using (MainDb db = new MainDb())
             {
