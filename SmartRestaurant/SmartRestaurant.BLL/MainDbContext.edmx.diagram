@@ -4,8 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="eb1d1ea9c69e4f5684b6de9a2016e003" Name="Diagram1" ZoomLevel="71">
-        <EntityTypeShape EntityType="SmartRestaurantModel.sys_role" Width="1.5" PointX="4.75" PointY="3.75" />
+      <Diagram DiagramId="eb1d1ea9c69e4f5684b6de9a2016e003" Name="Diagram1" ZoomLevel="121">
         <EntityTypeShape EntityType="SmartRestaurantModel.sys_user" Width="1.5" PointX="5.75" PointY="0.75" />
         <EntityTypeShape EntityType="SmartRestaurantModel.zzdc_cpwlxh" Width="1.5" PointX="2.75" PointY="6.75" />
         <EntityTypeShape EntityType="SmartRestaurantModel.zzdc_cpxx" Width="1.5" PointX="6.75" PointY="3.75" />
@@ -24,6 +23,7 @@
         <EntityTypeShape EntityType="SmartRestaurantModel.zzdc_cplx" Width="1.5" PointX="11.375" PointY="10.75" />
         <EntityTypeShape EntityType="SmartRestaurantModel.zzdc_czlx" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="SmartRestaurantModel.sys_dict" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SmartRestaurantModel.sys_role" Width="1.5" PointX="3.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

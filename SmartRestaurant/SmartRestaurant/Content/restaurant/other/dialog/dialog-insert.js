@@ -28,3 +28,18 @@ function insert_fail(dialog) {
         }]
     });
 }
+function insert_success1(dialog) {
+    BootstrapDialog.show({
+        type: BootstrapDialog.TYPE_SUCCESS,
+        title: '成功 ',
+        message: '添加成功！',
+        size: BootstrapDialog.SIZE_SMALL,
+        buttons: [{
+            label: '确定',
+            action: function (dialogItself) {
+                dialogItself.close();
+                dialog.close();
+            }
+        }]
+    });
+}
