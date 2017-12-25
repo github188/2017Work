@@ -24,5 +24,24 @@ namespace SmartRestaurant.Areas.Restaurant.Controllers
                 return Json(new { total = total, rows = rows }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult Insert()
+        {
+            return View("Insert");
+        }
+        public JsonResult Inserting(){
+            return Json(new { result = "fail" });
+        }
+        public ActionResult Update()
+        {
+            return View("Update");
+        }
+        public JsonResult Updating()
+        {
+            return Json(new { result = "fail" });
+        }
+        public JsonResult Delete()
+        {
+            return Json(new { result = "fail" });
+        }
     }
 }

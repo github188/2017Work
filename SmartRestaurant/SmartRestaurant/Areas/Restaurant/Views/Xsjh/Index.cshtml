@@ -32,15 +32,6 @@
 </head>
 <body>
     <div id="panel-body" class="panel-body" style="padding-bottom:0px;height:662px">
-
-        <div class="container">
-            <div class="row">
-                <div class='col-sm-6'>
-                    <input type='text' class="form-control" id='datetimepicker4' />
-                </div>
-            </div>
-        </div>
-
         <div id="toolbar" class="btn-group">
             <div>
                 <button id="btn_add" type="button" class="btn btn-default" href="Cplxbj/Insert" title="新增类型">
@@ -57,13 +48,13 @@
         <table id="tb_departments"></table>
     </div>
     <script>
-        $(function () {
-            $('#datetimepicker4').datetimepicker({
-                viewMode: 'days',
-                format: 'YYYY/MM/DD',
-                locale: 'zh-cn'
-            });
-        });
+        //$(function () {
+        //    $('#datetimepicker4').datetimepicker({
+        //        viewMode: 'days',
+        //        format: 'YYYY/MM/DD',
+        //        locale: 'zh-cn'
+        //    });
+        //});
         //使table能根据分辨率的改变而改变
         $("#panel-body").css("height", $(window).height());
         $(window).resize(function () {
@@ -226,7 +217,7 @@
                         var title = $this.attr("title");
                         var url = $this.attr("href");
                         var data = {id : row[0].id};
-                        var msg = '确定删除该类型吗？'
+                        var msg = '确定删除该行记录吗？'
                         ShowDialog_delete(title,msg,url,data)
                     }
                 });
