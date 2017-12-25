@@ -15,7 +15,7 @@ namespace SmartRestaurant.Model
     public partial class sys_role
     {
         public int id { get; set; }
-        public string username { get; set; }
+        public string name { get; set; }
         public int rank { get; set; }
         public string remark { get; set; }
     }
