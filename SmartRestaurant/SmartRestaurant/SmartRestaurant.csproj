@@ -1683,6 +1683,12 @@
     <Content Include="Areas\Restaurant\Views\Jsgl\Index.cshtml" />
     <Content Include="Areas\Restaurant\Views\Jsgl\Update.cshtml" />
     <Content Include="Areas\Restaurant\Views\Jsgl\Insert.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Yhgl\Index.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Yhgl\Insert.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Yhgl\Update.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Ddgl\Index.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Ddgl\Insert.cshtml" />
+    <Content Include="Areas\Restaurant\Views\Ddgl\Update.cshtml" />
     <None Include="Properties\PublishProfiles\release.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\css\page-default.css" />
@@ -1755,11 +1761,13 @@
     <Compile Include="Areas\Restaurant\Controllers\CplxbjController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\CzlxbjController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\CzxxbjController.cs" />
+    <Compile Include="Areas\Restaurant\Controllers\DdglController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\HomeController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\JsglController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\MenuController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\WllxbjController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\WlxxbjController.cs" />
+    <Compile Include="Areas\Restaurant\Controllers\YhglController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\ZdglController.cs" />
     <Compile Include="Areas\Restaurant\RestaurantAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
