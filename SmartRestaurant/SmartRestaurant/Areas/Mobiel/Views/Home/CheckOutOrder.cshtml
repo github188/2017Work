@@ -1,6 +1,5 @@
 ﻿@model List<SmartRestaurant.Areas.Mobiel.Controllers.MenuItem>
 @{
-    ViewBag.Title = "ConfrimSubmit";
     Layout = null;
     double total = 0;
     int count = 0;
@@ -9,12 +8,13 @@
         Response.Redirect(Url.Content("~/Mobiel/Home/Index"));
     }
 }
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>订单确认</title>
+    <title>结账</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Scripts/mobiel/css/pagedefault.css" rel="stylesheet" type="text/css" />
@@ -28,11 +28,11 @@
 <body>
     <div class="threeLayout toputil"><span style="border-right:0.5rem;" onclick="gotoHome()"><</span><span>确认菜品</span><span></span></div>
     <ul class="itemlist">
-        @{ 
-            foreach(var item in Model)
+        @{
+            foreach (var item in Model)
             {
                 count++;
-                total+= item.count * item.price;
+                total += item.count * item.price;
                 <li>
                     <span>@item.name</span><sapn style="text-align:center;">@item.count</sapn><span style="text-align:right;">@(item.count * item.price)</span>
                 </li>
@@ -44,15 +44,15 @@
     <div class="footer">
         <span></span>
         <div class="left">
-            已选：<span id="totalcountshow">@count</span>份
+            共点单：<span id="totalcountshow">@count</span>份
             <br />
             总计：￥<span id="totalpriceshow">@total.ToString("0.00")</span>元
         </div>
         <button id="submit" class="right btn btn-primary" onclick="SureSubmit()">
-            确认
+            确认付款
         </button>
     </div>
-   <script>
+    <script>
 
        $(function () {
 
@@ -62,35 +62,33 @@
 
        function SureSubmit()
        {
+           alert("模拟付款");
            $('#submit').prop("disabled",true);
            var data= @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
 
-           $.post('@Url.Action("Order")',{data: JSON.stringify(data)},function(msg){
+           $.post('@Url.Action("SureCheckOutOrder")',{data: JSON.stringify(data)},function(msg){
                var res=msg;
                if(res.IsSuccess)
                {
-                   warn("提交成功");
+                   warn("结账成功");
                    setTimeout(gotoHome,1000);
                }
                else
                {
-                   warn("提交失败，请重试");
+                   warn("结账失败，请重试");
                    $('#submit').prop("disabled",false);
                }
-           })
-
+           });
        }
 
-
+        //评价
        function gotoHome()
        {
            window.location.href = "@(Url.Content("~/Mobiel/Home/Index"))";
        }
 
-   </script>
+    </script>
 
 </body>
 
 </html>
-
-

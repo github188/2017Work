@@ -1599,6 +1599,7 @@
     <Content Include="Areas\Restaurant\Views\Zdgl\Insert.cshtml" />
     <Content Include="Areas\Restaurant\Views\Zdgl\Update.cshtml" />
     <Content Include="Areas\Restaurant\Views\Cpbj\Update.cshtml" />
+    <Content Include="Areas\Mobiel\Views\Home\CheckOutOrder.cshtml" />
     <None Include="Properties\PublishProfiles\release.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\css\page-default.css" />
