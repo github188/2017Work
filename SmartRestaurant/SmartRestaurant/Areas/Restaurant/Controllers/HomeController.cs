@@ -14,6 +14,7 @@ namespace SmartRestaurant.Areas.Restaurant.Controllers
         public ActionResult Index()
         {
             JObject json = new JObject();
+            //Session["username"] = "system";
             json.Add("id", "0");
             json.Add("parentId", "0");
             json.Add("text", "主菜单");
@@ -52,6 +53,9 @@ namespace SmartRestaurant.Areas.Restaurant.Controllers
                 aa = "11",
                 bbb = new int[1,2,3]
             },JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Welcome() {
+            return View("Welcome");
         }
     }
 }
