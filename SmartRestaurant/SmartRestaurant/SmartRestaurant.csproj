@@ -178,6 +178,10 @@
     <Content Include="bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll" />
     <Content Include="bin\zh-Hans\System.Web.WebPages.Razor.resources.dll" />
     <Content Include="bin\zh-Hans\System.Web.WebPages.resources.dll" />
+    <Content Include="Content\img\down.png" />
+    <Content Include="Content\img\pic.png" />
+    <Content Include="Content\img\title_DC.png" />
+    <Content Include="Content\img\up.png" />
     <Content Include="Content\navmenu\css\demo.css" />
     <Content Include="Content\navmenu\css\menu_bubble.css" />
     <Content Include="Content\navmenu\css\menu_cornerbox.css" />
@@ -1607,6 +1611,9 @@
     <Content Include="Content\restaurant\tab\tab.css" />
     <Content Include="Content\restaurant\tab\tab.js" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\tabDiv\closable-tab-div.js" />
+    <Content Include="Content\treeMenu\sidebar-menu.css" />
+    <Content Include="Content\treeMenu\sidebar-menu.js" />
     <Content Include="packages.config" />
     <Content Include="Areas\Dictionary\Views\Dictionary\Detail.cshtml" />
     <Content Include="Areas\Dictionary\Views\DicContent\Index.cshtml" />
@@ -1711,6 +1718,8 @@
     <Content Include="Scripts\ladda\dist\ladda.min.js" />
     <Content Include="Scripts\ladda\dist\spin.js" />
     <Content Include="Scripts\ladda\dist\spin.min.js" />
+    <Content Include="Scripts\mobiel\css\pagedefault.css" />
+    <Content Include="Scripts\mobiel\pagedefault.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\vue\vue.min.js" />
     <Content Include="Views\Web.config">
@@ -1779,6 +1788,7 @@
     <Compile Include="Areas\Restaurant\Controllers\YhglController.cs" />
     <Compile Include="Areas\Restaurant\Controllers\ZdglController.cs" />
     <Compile Include="Areas\Restaurant\RestaurantAreaRegistration.cs" />
+    <Compile Include="Controllers\BaseBLL.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
