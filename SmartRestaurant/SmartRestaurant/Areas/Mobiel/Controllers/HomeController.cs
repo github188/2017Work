@@ -46,7 +46,7 @@ namespace SmartRestaurant.Areas.Mobiel.Controllers
                 var typeList = db.zzdc_cplx.Take(10).ToList();
 
                 var idlist = typeList.Select(p1 => p1.id).ToList();
-                var itemList = db.zzdc_cpxx.Where(p => idlist.Contains(p.cplx_id)).Take(100).ToList();
+                var itemList = db.zzdc_cpxx.Where(p => idlist.Contains(p.cplx_id)&& p.sfsj == 1).Take(100).ToList();
 
                 var result = new List<Menu>();
                 

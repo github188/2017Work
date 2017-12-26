@@ -12,6 +12,7 @@ namespace SmartRestaurant.Areas.Restaurant.Controllers
         // GET: Restaurant/Xsjh
         public ActionResult Index()
         {
+            string user = Session["username"] as string;
             return View();
         }
         public JsonResult getList(int limit, int offset, string departmentname, string statu)
