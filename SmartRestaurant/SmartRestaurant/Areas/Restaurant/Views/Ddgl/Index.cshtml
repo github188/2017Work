@@ -25,6 +25,11 @@
     <script src="~/Content/restaurant/other/dialog/dialog-insert.js"></script><!-- 消息dialog -->
     <script src="~/Content/restaurant/other/dialog/dialog-update.js"></script><!-- 消息dialog -->
     <script src="~/Content/restaurant/other/dialog/dialog-delete.js"></script><!-- 消息dialog -->
+    <!-- datetimepicker begin -->
+    <link href="~/Content/restaurant/datetimepicker/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css" />
+    <script src="~/Content/restaurant/datetimepicker/moment-with-locales.js"></script>
+    <script src="~/Content/restaurant/datetimepicker/bootstrap-datetimepicker.js"></script>
+    <!-- datetimepicker end -->
 
 </head>
 <body>
@@ -103,7 +108,13 @@
 
                     }, {
                         field: 'cjsj',
-                        title: '创建时间'
+                        title: '创建时间',
+                        formatter: function (value, row, index) {
+                            //设备信息列表格式化时间
+                            var html = ('<span>' + jsonDateFormat(value) + '</span>');
+                            return html;
+                        }
+
 
                     }, {
                         field: 'cjr',
@@ -115,7 +126,12 @@
 
                     }, {
                         field: 'jdsj',
-                        title: '接单时间'
+                        title: '接单时间',
+                        formatter: function (value, row, index) {
+                            //设备信息列表格式化时间
+                            var html = ('<span>' + jsonDateFormat(value) + '</span>');
+                            return html;
+                        }
 
                     }, {
                         field: 'jdr',
@@ -127,7 +143,12 @@
 
                     }, {
                         field: 'fksj',
-                        title: '付款时间'
+                        title: '付款时间',
+                        formatter: function (value, row, index) {
+                            //设备信息列表格式化时间
+                            var html = ('<span>' + jsonDateFormat(value) + '</span>');
+                            return html;
+                        }
 
                     }, {
                         field: 'fkr',
@@ -165,7 +186,33 @@
                 return temp;
             };
             return oTableInit;
+
         };
+
+        function jsonDateFormat(jsonDate) {
+            if (typeof jsonDate != "string") {
+                return "-";
+            }
+            //json日期格式转换为正常格式
+            var jsonDateStr = jsonDate.toString();//此处用到toString（）是为了让传入的值为字符串类型，目的是为了避免传入的数据类型不支持.replace（）方法
+            try {
+                var k = parseInt(jsonDateStr.replace("/Date(", "").replace(")/", ""), 10);
+                if (k < 0)
+                    return null;
+
+                var date = new Date(parseInt(jsonDateStr.replace("/Date(", "").replace(")/", ""), 10));
+                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+                var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                var hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+                var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+                var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+                var milliseconds = date.getMilliseconds();
+                return date.getFullYear() + "/" + month + "/" + day + " " + hours + ":" + minutes + ":" + seconds;
+            }
+            catch (ex) {
+                return "时间格式转换错误";
+            }
+        }
 
 
         var ButtonInit = function () {
@@ -203,12 +250,12 @@
                     var row = $.map($("#tb_departments").bootstrapTable('getSelections'), function (row) {
                         return row;
                     });
-                    if (row.length==0)
+                    if (row.length == 0)
                         danger_dialog('请选择一行数据！');
                     else {
                         var $this = $(this);
                         var title = $this.attr("title");
-                        var url = $this.attr("href")+'?id='+row[0].id;
+                        var url = $this.attr("href") + '?id=' + row[0].id;
                         ShowDialog(title, url, function (dialog) {
                             var data = $("#team").serialize();
                             $.ajax({
@@ -241,9 +288,9 @@
                         var $this = $(this);
                         var title = $this.attr("title");
                         var url = $this.attr("href");
-                        var data = {id : row[0].id};
+                        var data = { id: row[0].id };
                         var msg = '确定删除该类型吗？'
-                        ShowDialog_delete(title,msg,url,data)
+                        ShowDialog_delete(title, msg, url, data)
                     }
                 });
 
