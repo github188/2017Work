@@ -45,6 +45,12 @@
                 <button id="btn_delete" type="button" class="btn btn-default" href="Ddgl/Delete" title="类型删除">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
                 </button>
+                <button id="btn_xq" type="button" class="btn btn-info" href="Ddgl/Update" title="订单详情">
+                    详情
+                </button>
+                <button id="btn_jd" type="button" class="btn btn-danger" href="Ddgl/Update" title="订单详情">
+                    接单
+                </button>
             </div>
         </div>
         <table id="tb_departments"></table>
@@ -247,6 +253,70 @@
                     });
                 });
                 $("#btn_edit").click(function (event) {
+                    var row = $.map($("#tb_departments").bootstrapTable('getSelections'), function (row) {
+                        return row;
+                    });
+                    if (row.length == 0)
+                        danger_dialog('请选择一行数据！');
+                    else {
+                        var $this = $(this);
+                        var title = $this.attr("title");
+                        var url = $this.attr("href") + '?id=' + row[0].id;
+                        ShowDialog(title, url, function (dialog) {
+                            var data = $("#team").serialize();
+                            $.ajax({
+                                type: "POST",
+                                url: 'Ddgl/Updating',
+                                data: data,
+                                dataType: "json",
+                                success: function (result) {
+                                    if (result.result == "success") {
+                                        update_success(dialog);
+                                    }
+                                    else {
+                                        update_fail(dialog);
+                                    }
+                                },
+                                error: function () {
+                                    error(dialog);
+                                }
+                            });
+                        });
+                    }
+                });
+                $("#btn_xq").click(function (event) {
+                    var row = $.map($("#tb_departments").bootstrapTable('getSelections'), function (row) {
+                        return row;
+                    });
+                    if (row.length == 0)
+                        danger_dialog('请选择一行数据！');
+                    else {
+                        var $this = $(this);
+                        var title = $this.attr("title");
+                        var url = $this.attr("href") + '?id=' + row[0].id;
+                        ShowDialog(title, url, function (dialog) {
+                            var data = $("#team").serialize();
+                            $.ajax({
+                                type: "POST",
+                                url: 'Ddgl/Updating',
+                                data: data,
+                                dataType: "json",
+                                success: function (result) {
+                                    if (result.result == "success") {
+                                        update_success(dialog);
+                                    }
+                                    else {
+                                        update_fail(dialog);
+                                    }
+                                },
+                                error: function () {
+                                    error(dialog);
+                                }
+                            });
+                        });
+                    }
+                });
+                $("#btn_jd").click(function (event) {
                     var row = $.map($("#tb_departments").bootstrapTable('getSelections'), function (row) {
                         return row;
                     });
